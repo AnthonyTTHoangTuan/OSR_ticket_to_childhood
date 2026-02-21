@@ -186,81 +186,91 @@ background-size:600px 20px}
 .nav-item.active{color:var(--bo2);background:var(--bo-g);border-left-color:var(--bo);font-weight:700}
 .nav-item .star{color:var(--bo);font-size:.55rem;margin-left:.2rem}
 
-/* ── SCORE BAR (sports scoreboard) ── */
+/* ── SCORE BAR (playful) ── */
 .score-bar{position:sticky;top:0;z-index:5;
-background:linear-gradient(135deg,#1a2235 0%,#2d3a5e 100%);
-border-bottom:3px solid #4a5a8a;padding:.55rem 1.2rem .4rem;display:flex;flex-direction:column;gap:.3rem;
-box-shadow:0 4px 16px rgba(0,0,0,.35)}
+background:linear-gradient(135deg,#1a1f0e 0%,#252d12 60%,#1e2610 100%);
+border-bottom:3px solid #4a5e1a;padding:.55rem 1.2rem .4rem;display:flex;flex-direction:column;gap:.35rem;font-size:.74rem;
+box-shadow:0 4px 18px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.06)}
 .score-bar-top{display:flex;align-items:center;gap:.45rem;flex-wrap:wrap}
-/* Each stat is a self-contained chip */
-.sb-chip{display:inline-flex;align-items:center;gap:.28rem;border-radius:20px;padding:.18rem .55rem .18rem .3rem;border:1.5px solid rgba(255,255,255,.12);backdrop-filter:blur(4px)}
-.sb-chip .sb-ico{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;font-size:11px;line-height:1;flex-shrink:0}
-.sb-chip .sb-val{font-weight:900;font-family:'JetBrains Mono',monospace;font-size:.82rem;letter-spacing:-.01em}
-.sb-chip .sb-lbl{font-weight:600;font-family:'Baloo 2',cursive;font-size:.67rem;letter-spacing:.2px;opacity:.85}
-/* Scored — emerald */
-.sb-chip.chip-ok{background:rgba(16,185,129,.18);border-color:rgba(16,185,129,.4)}
-.sb-chip.chip-ok .sb-ico{background:#059669;box-shadow:0 0 6px rgba(16,185,129,.6)}
-.sb-chip.chip-ok .sb-val{color:#34d399}
-.sb-chip.chip-ok .sb-lbl{color:#6ee7b7}
-/* Missed — cool slate */
-.sb-chip.chip-no{background:rgba(100,116,139,.2);border-color:rgba(100,116,139,.4)}
-.sb-chip.chip-no .sb-ico{background:#475569;box-shadow:0 0 6px rgba(100,116,139,.5)}
-.sb-chip.chip-no .sb-val{color:#cbd5e1}
-.sb-chip.chip-no .sb-lbl{color:#94a3b8}
-/* Lucky shot — golden */
-.sb-chip.chip-w73{background:rgba(234,179,8,.18);border-color:rgba(234,179,8,.4)}
-.sb-chip.chip-w73 .sb-ico{background:#b45309;box-shadow:0 0 6px rgba(234,179,8,.6)}
-.sb-chip.chip-w73 .sb-val{color:#fde68a}
-.sb-chip.chip-w73 .sb-lbl{color:#fcd34d}
-/* Fluke — tangerine */
-.sb-chip.chip-w52{background:rgba(234,88,12,.18);border-color:rgba(234,88,12,.4)}
-.sb-chip.chip-w52 .sb-ico{background:#c2410c;box-shadow:0 0 6px rgba(234,88,12,.5)}
-.sb-chip.chip-w52 .sb-val{color:#fdba74}
-.sb-chip.chip-w52 .sb-lbl{color:#fb923c}
-/* Foul — violet */
-.sb-chip.chip-mn{background:rgba(139,92,246,.18);border-color:rgba(139,92,246,.4)}
-.sb-chip.chip-mn .sb-ico{background:#7c3aed;box-shadow:0 0 6px rgba(139,92,246,.5)}
-.sb-chip.chip-mn .sb-val{color:#c4b5fd}
-.sb-chip.chip-mn .sb-lbl{color:#a78bfa}
-/* Progress text */
-.score-bar .vl-prog{color:#94a3b8;font-weight:700;font-family:'JetBrains Mono',monospace;font-size:.7rem;margin-left:auto;white-space:nowrap}
-.score-bar .sep{color:#4a5a8a;margin:0 .05rem;font-size:.9rem}
-.score-total-wrap{display:inline-flex;align-items:center;gap:.35rem;background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:20px;padding:.18rem .7rem .18rem .45rem;margin-left:.15rem;border:1.5px solid rgba(255,255,255,.25);box-shadow:0 2px 10px rgba(245,158,11,.4)}
-.score-total-wrap .lb-total{color:rgba(0,0,0,.6);font-weight:800;font-family:'Baloo 2',cursive;font-size:.65rem;letter-spacing:.4px;text-transform:uppercase}
-.score-total-wrap .vl-total{color:#1c1917;font-weight:900;font-family:'JetBrains Mono',monospace;font-size:.88rem;letter-spacing:-.01em;min-width:2rem;text-align:right}
+
+/* ── CHIP BASE ── */
+.sb-chip{display:flex;align-items:center;gap:.28rem;border-radius:7px;padding:.18rem .55rem .18rem .42rem;border:1.5px solid transparent;position:relative;transition:transform .15s}
+.sb-chip:hover{transform:translateY(-1px)}
+.sb-chip-icon{font-size:.88rem;line-height:1;flex-shrink:0}
+.sb-chip-val{font-weight:900;font-family:'JetBrains Mono',monospace;font-size:.82rem;min-width:1.1rem;text-align:right;letter-spacing:-.02em}
+.sb-chip-lbl{font-weight:700;font-family:'Baloo 2',cursive;font-size:.68rem;letter-spacing:.2px;opacity:.85;text-transform:uppercase}
+
+/* ── SCORED — emerald pitch green ── */
+.sb-chip--ok{background:linear-gradient(135deg,#064e2b,#0f7a42);border-color:#22c55e;box-shadow:0 0 10px rgba(34,197,94,.2)}
+.sb-chip--ok .sb-chip-icon{filter:drop-shadow(0 0 4px rgba(34,197,94,.6))}
+.sb-chip--ok .sb-chip-val{color:#4ade80}
+.sb-chip--ok .sb-chip-lbl{color:#86efac}
+
+/* ── MISSED — dark slate with bold red X (icon ≠ bg color) ── */
+.sb-chip--no{background:linear-gradient(135deg,#1e1e2e,#2d1b2d);border-color:#6b21a8;box-shadow:0 0 10px rgba(107,33,168,.2)}
+.sb-chip--no .sb-chip-icon{color:#f87171;font-style:normal;font-weight:900;font-size:.78rem;font-family:'JetBrains Mono',monospace;filter:drop-shadow(0 0 4px rgba(248,113,113,.5))}
+.sb-chip--no .sb-chip-val{color:#e879f9}
+.sb-chip--no .sb-chip-lbl{color:#c084fc}
+
+/* ── LUCKY SHOT — sunburst amber on deep navy ── */
+.sb-chip--wild73{background:linear-gradient(135deg,#14213d,#1e3a5f);border-color:#f59e0b;box-shadow:0 0 10px rgba(245,158,11,.18)}
+.sb-chip--wild73 .sb-chip-icon{filter:drop-shadow(0 0 5px rgba(253,224,71,.7))}
+.sb-chip--wild73 .sb-chip-val{color:#fcd34d}
+.sb-chip--wild73 .sb-chip-lbl{color:#fde68a}
+
+/* ── FLUKE — autumn copper on dark forest ── */
+.sb-chip--wild52{background:linear-gradient(135deg,#1c1207,#2e1d08);border-color:#d97706;box-shadow:0 0 10px rgba(217,119,6,.18)}
+.sb-chip--wild52 .sb-chip-icon{filter:drop-shadow(0 0 4px rgba(251,146,60,.5))}
+.sb-chip--wild52 .sb-chip-val{color:#fb923c}
+.sb-chip--wild52 .sb-chip-lbl{color:#fed7aa}
+
+/* ── FOUL — electric bolt on deep indigo ── */
+.sb-chip--minus{background:linear-gradient(135deg,#0f0c2e,#1a1654);border-color:#6366f1;box-shadow:0 0 10px rgba(99,102,241,.2)}
+.sb-chip--minus .sb-chip-icon{color:#facc15;font-size:.78rem;filter:drop-shadow(0 0 5px rgba(250,204,21,.7))}
+.sb-chip--minus .sb-chip-val{color:#818cf8}
+.sb-chip--minus .sb-chip-lbl{color:#a5b4fc}
+
+.score-bar .vl-prog{color:#a3b88c;font-weight:700;font-family:'JetBrains Mono',monospace;font-size:.72rem;margin-left:auto;letter-spacing:.01em}
+.score-bar .sep{display:none}
+
+/* ── QDOTS ── */
 .qdots{display:flex;flex-wrap:wrap;gap:4px;padding:.15rem 0}
-.qdot{width:14px;height:14px;border-radius:50%;border:2px solid var(--cream3);background:var(--cream2);transition:all .3s;flex-shrink:0}
+.qdot{width:14px;height:14px;border-radius:50%;border:2px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);transition:all .3s;flex-shrink:0}
 .qdot.ok{
-  background:linear-gradient(135deg,#34d399,#059669);border-color:#047857;transform:scale(1.2);
-  box-shadow:0 0 8px rgba(52,211,153,.4);display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#22c55e,#15803d);border-color:#4ade80;transform:scale(1.2);
+  box-shadow:0 0 8px rgba(34,197,94,.5);display:flex;align-items:center;justify-content:center;
 }
 .qdot.ok::after{content:'🥇';font-size:8px;line-height:1}
 .qdot.no{
-  background:linear-gradient(135deg,#f87171,#dc2626);border-color:#b91c1c;transform:scale(1.2);
-  box-shadow:0 0 8px rgba(248,113,113,.4);display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#3b1f6e,#6b21a8);border-color:#a855f7;transform:scale(1.2);
+  box-shadow:0 0 8px rgba(168,85,247,.5);display:flex;align-items:center;justify-content:center;
 }
-.qdot.no::after{content:'🚫';font-size:8px;line-height:1}
-/* 🌻 Wild-73 dot — sunflower yellow, 0.73 pt (2 wrong, 1 wrong flanking) */
+.qdot.no::after{content:'✗';font-size:8px;line-height:1;color:#f87171;font-weight:900}
+/* 🌻 Wild-73 dot */
 .qdot.wild73{
-  background:linear-gradient(135deg,#fde68a,#f59e0b);border-color:#d97706;transform:scale(1.2);
-  box-shadow:0 0 10px rgba(253,230,138,.6);display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#1e3a5f,#1e4a8a);border-color:#f59e0b;transform:scale(1.2);
+  box-shadow:0 0 10px rgba(245,158,11,.5);display:flex;align-items:center;justify-content:center;
 }
 .qdot.wild73::after{content:'🌻';font-size:8px;line-height:1}
-/* 🍂 Wild-52 dot — autumn orange, 0.52 pt (2 wrong each side) */
+/* 🍂 Wild-52 dot */
 .qdot.wild52{
-  background:linear-gradient(135deg,#fdba74,#ea580c);border-color:#c2410c;transform:scale(1.2);
-  box-shadow:0 0 10px rgba(253,186,116,.5);display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#2e1d08,#451e08);border-color:#f97316;transform:scale(1.2);
+  box-shadow:0 0 10px rgba(249,115,22,.45);display:flex;align-items:center;justify-content:center;
 }
 .qdot.wild52::after{content:'🍂';font-size:8px;line-height:1}
-/* 🌧️ Penalty dot — rainy sky blue, −1 pt */
+/* ⚡ Penalty dot */
 .qdot.minus{
-  background:linear-gradient(135deg,#93c5fd,#3b82f6);border-color:#2563eb;transform:scale(1.2);
-  box-shadow:0 0 10px rgba(147,197,253,.5);display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#0f0c2e,#1e1b6e);border-color:#6366f1;transform:scale(1.2);
+  box-shadow:0 0 10px rgba(99,102,241,.5);display:flex;align-items:center;justify-content:center;
 }
-.qdot.minus::after{content:'🌧️';font-size:8px;line-height:1}
+.qdot.minus::after{content:'⚡';font-size:8px;line-height:1}
 @keyframes dotPop{0%{transform:scale(0.3) rotate(-180deg)}60%{transform:scale(1.3) rotate(10deg)}100%{transform:scale(1.15) rotate(0)}}
 .qdot.ok,.qdot.no,.qdot.wild73,.qdot.wild52,.qdot.minus{animation:dotPop .4s cubic-bezier(.34,1.56,.64,1) forwards}
-/* Total points badge — now handled by .score-total-wrap above */
+
+/* Total points badge */
+.score-total-wrap{display:flex;align-items:center;gap:.35rem;background:linear-gradient(135deg,#78350f,#b45309);border-radius:10px;padding:.18rem .65rem .18rem .5rem;margin-left:.3rem;border:2px solid #f59e0b;box-shadow:0 0 14px rgba(245,158,11,.3),0 2px 8px rgba(0,0,0,.3)}
+.score-total-wrap .lb-total{color:rgba(255,237,190,.8);font-weight:700;font-family:'Baloo 2',cursive;font-size:.68rem;letter-spacing:.3px}
+.score-total-wrap .vl-total{color:#fef08a;font-weight:900;font-family:'JetBrains Mono',monospace;font-size:.88rem;letter-spacing:-.01em;min-width:2.2rem;text-align:right;text-shadow:0 0 8px rgba(254,240,138,.6)}
 
 /* ── SECTIONS ── */
 .section{display:none;animation:fadeUp .45s cubic-bezier(.25,.46,.45,.94)}.section.visible{display:block}
@@ -884,17 +894,32 @@ cursor:pointer;box-shadow:0 4px 18px rgba(58,72,21,.45);transition:.2s;padding:0
 <div class="main-wrap">
 <div class="score-bar">
 <div class="score-bar-top">
-<!-- Scored chip -->
-<span class="sb-chip chip-ok"><span class="sb-ico">⚽</span><span class="sb-val" id="sV">0</span><span class="sb-lbl">scored</span></span>
-<!-- Missed chip -->
-<span class="sb-chip chip-no"><span class="sb-ico">🧱</span><span class="sb-val" id="wV">0</span><span class="sb-lbl">missed</span></span>
-<!-- Lucky shot chip -->
-<span class="sb-chip chip-w73"><span class="sb-ico">🍀</span><span class="sb-val" id="wild73V">0</span><span class="sb-lbl">lucky shot</span></span>
-<!-- Fluke chip -->
-<span class="sb-chip chip-w52"><span class="sb-ico">🎱</span><span class="sb-val" id="wild52V">0</span><span class="sb-lbl">fluke</span></span>
-<!-- Foul chip -->
-<span class="sb-chip chip-mn"><span class="sb-ico">🟥</span><span class="sb-val" id="minusV">0</span><span class="sb-lbl">foul</span></span>
-<div class="score-total-wrap"><span class="lb-total">🏆 TOTAL</span><span class="vl-total" id="totalPtsV">0</span></div>
+<div class="sb-chip sb-chip--ok">
+  <span class="sb-chip-icon">🥇</span>
+  <span class="sb-chip-val" id="sV">0</span>
+  <span class="sb-chip-lbl">scored</span>
+</div>
+<div class="sb-chip sb-chip--no">
+  <span class="sb-chip-icon">✗</span>
+  <span class="sb-chip-val" id="wV">0</span>
+  <span class="sb-chip-lbl">missed</span>
+</div>
+<div class="sb-chip sb-chip--wild73">
+  <span class="sb-chip-icon">🌻</span>
+  <span class="sb-chip-val" id="wild73V">0</span>
+  <span class="sb-chip-lbl">lucky shot</span>
+</div>
+<div class="sb-chip sb-chip--wild52">
+  <span class="sb-chip-icon">🍂</span>
+  <span class="sb-chip-val" id="wild52V">0</span>
+  <span class="sb-chip-lbl">fluke</span>
+</div>
+<div class="sb-chip sb-chip--minus">
+  <span class="sb-chip-icon">⚡</span>
+  <span class="sb-chip-val" id="minusV">0</span>
+  <span class="sb-chip-lbl">foul</span>
+</div>
+<div class="score-total-wrap"><span class="lb-total">⭐ TOTAL</span><span class="vl-total" id="totalPtsV">0</span></div>
 <span class="vl-prog" id="aV">0 / 0 answered</span>
 </div>
 <div class="qdots" id="qdots"></div>
@@ -2631,7 +2656,7 @@ l:`<p>This section provides the <strong>professional standard figures</strong> u
 <hr class="folk-hr">
 <h3>🔤 Typography — Font Sizes &amp; Weights</h3>
 <div class="cbox"><h4>Standard Font Hierarchy for Australian Statutory Reports</h4>
-<p>OSR's Australian Orange Corporate template is based on a clean serif or sans-serif font (commonly Arial or Times New Roman equivalent) at 9 pt body size. All sizes below are in <strong>points (pt)</strong> — 1 pt = 0.353 mm.</p>
+<p>OSR's Australian Orange Corporate template uses <strong>Arial</strong> (sans-serif) as its default body font at 9 pt. Arial is the out-of-the-box OSR standard for Australian statutory reports and is the most common choice across Big-4 and mid-tier firms when using the template. Times New Roman (serif) is occasionally substituted by firms with a traditional house style, but it is <em>not</em> the OSR default — do not assume "equivalent." Big-4 firms may instead apply their own branded sans-serif (e.g., PwC Helvetica Neue, EY Interstate, Deloitte Trait/Arial, KPMG KPMG font/Arial). All sizes below are in <strong>points (pt)</strong> — see the dedicated <em>Point ↔ mm Conversion</em> section for the full conversion table.</p>
 <div style="overflow-x:auto;margin-top:.5rem">
 <table style="width:100%;border-collapse:collapse;font-size:.75rem">
 <thead><tr style="background:var(--ink);color:var(--rice)">
@@ -2675,7 +2700,7 @@ l:`<p>This section provides the <strong>professional standard figures</strong> u
 <tr><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Description column</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>varies*</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">55 – 80 mm</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><code>DescriptionColumnWidth</code> (unit = column count ratio)</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">*OSR uses a ratio system, not fixed mm, for description columns. 2 units is the default; actual mm depends on remaining space after value columns.</td></tr>
 <tr style="background:var(--rice2)"><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Value column (single entity)</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>22 mm</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">20 – 28 mm</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><code>ValueColumnWidth</code></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">22 mm fits 9-digit numbers (billions) at 9 pt. Reduce to 20 mm only if 4+ value columns needed.</td></tr>
 <tr><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Value column (4-col: Consol + Parent)</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>22 mm each</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">20 – 24 mm</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><code>ValueColumnWidth</code></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">4 × 22 mm = 88 mm for values. Description takes remaining ≈82 mm. Tight but standard.</td></tr>
-<tr style="background:var(--rice2)"><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Note reference column</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>7 mm</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">6 – 9 mm</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><code>NoteColumnWidth</code></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Just wide enough for 2-digit note numbers (e.g. "23"). 7 mm is the AASB-standard minimum.</td></tr>
+<tr style="background:var(--rice2)"><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Note reference column</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>7 mm</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">6 – 9 mm</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><code>NoteColumnWidth</code></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Just wide enough for 2-digit note numbers (e.g. "23"). 7 mm is the Big-4 industry convention minimum — <strong>AASB standards do not prescribe physical column widths</strong>; this figure derives from established practice, not a standards mandate.</td></tr>
 <tr><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Subsection number column</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>7 mm</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">6 – 8 mm</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><code>SubsectionNumberWidth</code></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Holds sub-note labels like "(a)" or "(i)". 7 mm is standard.</td></tr>
 <tr style="background:var(--rice2)"><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Sub-subsection number column</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>7 mm</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">6 – 8 mm</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><code>Sub-SubsectionNumberWidth</code></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Third-level hierarchy (rare). Same width as subsection for visual alignment.</td></tr>
 </tbody></table>
@@ -2723,7 +2748,7 @@ Note col 7 mm + Description ≈ 63 mm + 4 × Value 22 mm + Subsection 7 mm = <st
 <tr><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Between table and paragraph below it</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>6 – 10 pt</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Spacing Before on paragraph below = 6–10</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Source notes, accounting policy paragraphs that follow a table need this breathing room.</td></tr>
 <tr style="background:var(--rice2)"><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Between section total row and next data row</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>0 pt additional</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Controlled by Section Heading style Spacing Before</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">The border line on the total row provides the visual separation. No extra spacing needed — adding it pushes totals away from data awkwardly.</td></tr>
 <tr><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Between grand total row and page end / next note</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>12 – 16 pt</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Blank Paragraph element after the Smart Table</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Grand total needs visual breathing room beneath the double underline before any subsequent element.</td></tr>
-<tr style="background:var(--rice2)"><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Before signature block (directors' declaration)</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>36 – 54 pt (≈ 12 – 18 mm)</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Multiple Blank Paragraph elements stacked, or one with large font size</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Signature lines need physical space for a handwritten signature. 15 mm is the ASIC convention for signature blocks.</td></tr>
+<tr style="background:var(--rice2)"><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Before signature block (directors' declaration)</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>36 – 54 pt (≈ 12 – 18 mm)</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Multiple Blank Paragraph elements stacked, or one with large font size</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Signature lines need physical space for a handwritten signature. 15 mm is the established Australian statutory reporting practice convention for signature blocks — <strong>ASIC does not formally prescribe physical spacing dimensions</strong> (the Corporations Act requires signing but specifies no physical spacing). The 15 mm figure is a Big-4 professional standard, not an ASIC regulatory requirement.</td></tr>
 <tr><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Bullet list indentation (Level 1)</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>5 – 6 mm left indent</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Edit Paragraph → Indent Left = 5–6 mm (in pt: ≈ 14–17 pt)</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Standard bullet indent. Bullet symbol sits at the indent, text wraps to align after the bullet.</td></tr>
 <tr style="background:var(--rice2)"><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Bullet list indentation (Level 2 sub-bullet)</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>10 – 12 mm left indent</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Indent Level 2 adds ≈ 5 mm additional to Level 1</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Sub-bullets must be visually subordinate. 10 mm minimum ensures clear hierarchy.</td></tr>
 <tr><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">First-line indent (indent-first style)</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>5 – 7 mm (≈ 14 – 20 pt)</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Edit Paragraph → Indentation → First Line = 5–7 mm, or via a "Body Indent-First" paragraph style</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Used to signal new paragraphs without vertical spacing. Never apply to the first paragraph after a heading or table. Set Spacing After = 0 pt when using indent-first.</td></tr>
@@ -2824,12 +2849,144 @@ Note col 7 mm + Description ≈ 63 mm + 4 × Value 22 mm + Subsection 7 mm = <st
 <div style="font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--ink3);margin-bottom:.4rem">Cell &amp; Rows</div>
 <div style="font-size:.78rem;line-height:1.8"><strong>Cell pad T/B</strong> 1–1.5 mm<br><strong>Cell pad L/R</strong> 1.5–2 mm<br><strong>Data row ht</strong> 5–6 mm<br><strong>Heading row ht</strong> 7–9 mm<br><strong>Bullet indent L1</strong> 5–6 mm</div>
 </div>
-</div>`,
+</div>
+
+<hr class="folk-hr">
+<h3>📐 Point ↔ mm Conversion — Definition &amp; Reference Table</h3>
+<div class="cbox"><h4>What is a Point? What is a Millimetre?</h4>
+<p>Two units of measurement govern OSR formatting. Knowing how to convert between them is essential when translating design specifications into OSR settings and vice versa.</p>
+<ul style="margin:.4rem 0 .6rem 1.2rem;font-size:.8rem;line-height:1.6">
+<li><strong>Point (pt)</strong> — A typographic unit. 1 point = exactly 1/72 of an inch. Points are the native unit for <em>font sizes</em>, <em>line spacing</em>, <em>border weights</em>, and <em>paragraph spacing</em> in OSR (and in Word, InDesign, and all professional typesetting software). When OSR says "9 pt body text" or "0.5 pt border," it means points.</li>
+<li><strong>Millimetre (mm)</strong> — A metric unit. 1 mm = 1/25.4 of an inch. Millimetres are the native unit for <em>page margins</em>, <em>column widths</em>, <em>header/footer heights</em>, and <em>page dimensions</em> in OSR and in ASIC lodgement specifications. When OSR says "20 mm margin" or "22 mm value column," it means millimetres.</li>
+</ul>
+<p style="margin-bottom:.4rem"><strong>Exact conversion factors:</strong></p>
+<ul style="margin:.3rem 0 .6rem 1.2rem;font-size:.8rem;line-height:1.6">
+<li>1 inch = 72 pt = 25.4 mm</li>
+<li>1 pt = 25.4 ÷ 72 = <strong>0.3528 mm</strong> (commonly rounded to <strong>0.353 mm</strong>)</li>
+<li>1 mm = 72 ÷ 25.4 = <strong>2.8346 pt</strong> (commonly rounded to <strong>2.835 pt</strong>)</li>
+</ul>
+<div style="overflow-x:auto;margin-top:.5rem">
+<table style="width:100%;border-collapse:collapse;font-size:.75rem">
+<thead><tr style="background:var(--ink);color:var(--rice)">
+<th style="padding:.32rem .55rem;border:1px solid var(--ink2)">Points (pt)</th>
+<th style="padding:.32rem .55rem;border:1px solid var(--ink2)">Millimetres (mm)</th>
+<th style="padding:.32rem .55rem;border:1px solid var(--ink2)">Common Use in OSR</th>
+</tr></thead>
+<tbody>
+<tr><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">4 pt</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">≈ 1.4 mm</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Blank/spacer paragraph font size (minimum spacer)</td></tr>
+<tr style="background:var(--rice2)"><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">6 pt</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">≈ 2.1 mm</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Spacer paragraph, inter-paragraph Spacing After</td></tr>
+<tr><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">7 pt</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">≈ 2.5 mm</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Minimum footnote / source note font size</td></tr>
+<tr style="background:var(--rice2)"><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">8 pt</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">≈ 2.8 mm</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Header/footer text, footnotes</td></tr>
+<tr><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>9 pt</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>≈ 3.2 mm</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>Standard body text, table cell data — OSR default</strong></td></tr>
+<tr style="background:var(--rice2)"><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">10 pt</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">≈ 3.5 mm</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Note title / section heading</td></tr>
+<tr><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">11 pt</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">≈ 3.9 mm</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Section heading (upper bound)</td></tr>
+<tr style="background:var(--rice2)"><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">12 pt</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">≈ 4.2 mm</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">1 pica; paragraph spacing unit; header height reference</td></tr>
+<tr><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">14 pt</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">≈ 4.9 mm</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Report title (lower bound)</td></tr>
+<tr style="background:var(--rice2)"><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">16 pt</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">≈ 5.6 mm</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Report title (upper bound)</td></tr>
+<tr><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">36 pt</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">≈ 12.7 mm</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Signature block spacing (lower bound)</td></tr>
+<tr style="background:var(--rice2)"><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">42 pt</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">≈ 14.8 mm</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Signature block spacing (≈ 15 mm target)</td></tr>
+<tr><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">54 pt</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">≈ 19.1 mm</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Signature block spacing (upper bound)</td></tr>
+</tbody></table>
+</div>
+<div class="hbox" style="margin-top:.6rem"><strong>Quick mental maths:</strong> 1 mm ≈ 2.8 pt. So if OSR asks for a margin in mm and you need to estimate pt: multiply mm × 2.8. Going the other way: divide pt ÷ 2.8 to get mm. Example: 20 mm margin = 20 × 2.8 = 56 pt.</div>
+</div>
+
+<hr class="folk-hr">
+<h3>🔢 Number Formatting Standards</h3>
+<div class="cbox"><h4>Amounts, Signs, Alignment &amp; Scale — Australian Convention</h4>
+<p>Number formatting in Australian statutory financial reports follows a strict set of conventions derived from AASB 101, AASB 1054, and Big-4 house styles. Inconsistent number formatting is one of the most common presentation issues flagged in peer reviews.</p>
+<div style="overflow-x:auto;margin-top:.5rem">
+<table style="width:100%;border-collapse:collapse;font-size:.75rem">
+<thead><tr style="background:var(--ink);color:var(--rice)">
+<th style="padding:.32rem .55rem;border:1px solid var(--ink2)">Convention</th>
+<th style="padding:.32rem .55rem;border:1px solid var(--ink2)">Standard Practice</th>
+<th style="padding:.32rem .55rem;border:1px solid var(--ink2)">Notes</th>
+</tr></thead>
+<tbody>
+<tr><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Negative numbers</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>Brackets: (1,234)</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Australian statutory reports use parentheses for negatives, not a minus sign (−1,234). This is the AASB/Big-4 standard. Minus signs are used only in note narrative text when referring to a negative result (e.g. "a loss of $1.2 million").</td></tr>
+<tr style="background:var(--rice2)"><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Thousands separator</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>Comma: 1,234,567</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Use commas, not spaces or periods. Australian English convention. OSR formats numbers with commas automatically.</td></tr>
+<tr><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Decimal places</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>Nil (integers in $'000 tables)</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Financial statement face tables use no decimal places when rounded to $'000 or $m. Notes may show 1–2 decimal places for per-share amounts, ratios, or interest rates.</td></tr>
+<tr style="background:var(--rice2)"><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Zero values</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>Em dash (—) or blank</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">A true zero is shown as "—" (em dash) or left blank, never as "0" in a financial statement table. "0" looks like a rounding omission. OSR Smart Table non-zero filter can suppress zero rows entirely.</td></tr>
+<tr><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Number alignment</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>Right-aligned</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">All amounts in value columns must be right-aligned so that digits align vertically (ones under ones, thousands under thousands). Never centre-align amounts. Description columns are left-aligned.</td></tr>
+<tr style="background:var(--rice2)"><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Scale / rounding</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>$'000 most common; $m for large entities</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">AASB 101 para 53 permits rounding to thousands or millions. <strong>AASB 1054 para 14 requires explicit disclosure of the rounding basis</strong> (e.g. "Amounts in these financial statements are rounded to the nearest thousand dollars in accordance with ASIC Corporations Instrument 2016/191, unless otherwise stated"). OSR Report Settings controls the scale label in column headers.</td></tr>
+<tr><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Currency symbol</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>$ in column header; not repeated in cells</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">The "$" or "A$" symbol appears once in the column heading (e.g. "$'000" or "A$'000"). It is never repeated on each row. Foreign currency reporting must specify the currency (e.g. "US$'000").</td></tr>
+<tr style="background:var(--rice2)"><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Per-share amounts</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>Cents (¢) to 2 decimal places</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">EPS and DPS are expressed in cents (e.g. "12.34 cents per share"), not dollars, per AASB 133 and standard Australian practice.</td></tr>
+</tbody></table>
+</div>
+<div class="hbox warn" style="margin-top:.6rem"><strong>Common error:</strong> Using a minus sign (−) instead of brackets for negatives will be flagged in a Big-4 quality review. In Australian statutory reports, <strong>brackets = negative</strong> is a convention so entrenched that readers will query a minus sign as a possible formatting error.</div>
+</div>
+
+<hr class="folk-hr">
+<h3>🎨 Colour &amp; Shading Policy</h3>
+<div class="cbox"><h4>Monochrome Standard for Australian Statutory Reports</h4>
+<p>Australian statutory financial reports lodged with ASIC must be suitable for <strong>black-and-white print reproduction</strong>. The OSR Australian Orange Corporate template enforces a monochrome body — colour is reserved for cover pages only in some firm styles.</p>
+<div style="overflow-x:auto;margin-top:.5rem">
+<table style="width:100%;border-collapse:collapse;font-size:.75rem">
+<thead><tr style="background:var(--ink);color:var(--rice)">
+<th style="padding:.32rem .55rem;border:1px solid var(--ink2)">Element</th>
+<th style="padding:.32rem .55rem;border:1px solid var(--ink2)">Standard</th>
+<th style="padding:.32rem .55rem;border:1px solid var(--ink2)">Notes</th>
+</tr></thead>
+<tbody>
+<tr><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Body text colour</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>Black (100% K)</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Never use coloured body text. Dark grey (≥80% K) is only acceptable in header/footer lines where a lighter tone differentiates running headers from body.</td></tr>
+<tr style="background:var(--rice2)"><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Table row shading</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>None (white background)</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Alternating row shading (zebra stripes) is <em>not</em> used in Australian statutory financial statement tables. It is common in management accounts but out of place in audit-quality statutory reports. Never apply shading to Smart Table rows.</td></tr>
+<tr><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Column heading background</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>White (no fill)</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Do not shade column heading rows. Bold text + bottom border provides sufficient visual separation. Shaded headings were common in 1990s reports but are now considered dated in Big-4 statutory presentations.</td></tr>
+<tr style="background:var(--rice2)"><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Cover page / branding</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>Firm discretion</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Cover pages may use firm brand colours (e.g. Deloitte green, PwC orange, KPMG blue). Once the report body begins (Directors' Report), revert to monochrome.</td></tr>
+<tr><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Hyperlinks (digital lodgement)</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>Black underlined or plain black</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">For ASIC digital lodgement, hyperlinks in the body of the report should appear in black (not blue). Blue hyperlinks are suitable for internal working papers only, not the lodged report.</td></tr>
+</tbody></table>
+</div>
+</div>
+
+<hr class="folk-hr">
+<h3>📅 Date &amp; Currency Conventions</h3>
+<div class="cbox"><h4>Australian Format Standards for Dates and Currency Headers</h4>
+<p>Incorrect date formats and currency notation are among the most common formatting errors in Australian statutory reports prepared by international teams unfamiliar with local conventions.</p>
+<div style="overflow-x:auto;margin-top:.5rem">
+<table style="width:100%;border-collapse:collapse;font-size:.75rem">
+<thead><tr style="background:var(--ink);color:var(--rice)">
+<th style="padding:.32rem .55rem;border:1px solid var(--ink2)">Item</th>
+<th style="padding:.32rem .55rem;border:1px solid var(--ink2)">Correct Australian Format</th>
+<th style="padding:.32rem .55rem;border:1px solid var(--ink2)">Incorrect (do not use)</th>
+<th style="padding:.32rem .55rem;border:1px solid var(--ink2)">Notes</th>
+</tr></thead>
+<tbody>
+<tr><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Balance sheet / reporting date</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>30 June 2024</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">30/06/2024 · June 30, 2024 · 2024-06-30</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Australian convention: day Month Year with no ordinal suffix and no abbreviation. "30 June 2024" — month spelled out in full. Use OSR Report Variables ($PeriodEndDate$) to populate automatically.</td></tr>
+<tr style="background:var(--rice2)"><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Signing date (Directors' Declaration)</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>15 August 2024</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">August 15, 2024 · 15/08/2024</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Same format as reporting date. Never use US format (month/day) — ASIC reviewers will flag it.</td></tr>
+<tr><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Period references in note headings</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>Year ended 30 June 2024</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">FY2024 · FY24 · FYE June 30</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">"FY" abbreviations are acceptable in narrative only (Directors' Report), not in the formal heading of financial statement notes. Use the full period description in note headings.</td></tr>
+<tr style="background:var(--rice2)"><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Column heading — current year</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>2024<br>$'000</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">FY2024 · $000 · $'000s · AUD'000</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Year only (4-digit) on line 1; scale notation on line 2. "$'000" uses a right single quotation mark (apostrophe) before "000" to signal "thousands." "$000" without the apostrophe is technically incorrect. OSR populates column headers via Table Header (Full Year) settings.</td></tr>
+<tr><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Column heading — comparative year</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>2023<br>$'000</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Prior Year · PY · Comparative</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">The comparative column shows the year number, not a label like "Prior Year." Restated comparatives add "(Restated)" below the year number.</td></tr>
+<tr style="background:var(--rice2)"><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Currency for domestic AUD reports</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>$ or A$</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">AUD in column headers</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">For purely domestic reports (AUD only), "$" is sufficient. Use "A$" when the report also references foreign currencies to distinguish Australian dollars. "AUD" is the ISO code — appropriate in narrative text but not column headers.</td></tr>
+</tbody></table>
+</div>
+</div>
+
+<hr class="folk-hr">
+<h3>📃 Page Numbering &amp; Running Header Conventions</h3>
+<div class="cbox"><h4>Page Number Format, Position &amp; Header Consistency</h4>
+<p>Page numbering in Australian statutory reports follows a consistent convention across Big-4 and mid-tier firms. OSR populates page numbers automatically through the Footer settings in Header/Footer (Full Year).</p>
+<div style="overflow-x:auto;margin-top:.5rem">
+<table style="width:100%;border-collapse:collapse;font-size:.75rem">
+<thead><tr style="background:var(--ink);color:var(--rice)">
+<th style="padding:.32rem .55rem;border:1px solid var(--ink2)">Setting</th>
+<th style="padding:.32rem .55rem;border:1px solid var(--ink2)">Standard</th>
+<th style="padding:.32rem .55rem;border:1px solid var(--ink2)">Notes</th>
+</tr></thead>
+<tbody>
+<tr><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Page number format</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>Arabic numerals: 1, 2, 3 …</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Roman numerals (i, ii, iii) are not used in Australian statutory financial reports. Sequential Arabic numbering from the first page through the last. Cover pages and blank pages typically suppress the number but count in the sequence.</td></tr>
+<tr style="background:var(--rice2)"><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Page number position</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>Bottom centre or bottom right</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">OSR FooterCentre or FooterRight. Bottom-right is the most common Big-4 convention. Bottom-centre is also acceptable. Top-of-page numbers are non-standard for statutory reports.</td></tr>
+<tr><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Page number style</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>Plain number only (e.g. "42")</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Do not use "Page 42 of 87" format — the total page count is rarely known at the time of authoring and changes with every revision. Some firms use "42" only; others use "42 |" with a rule. "Page X" format is non-standard.</td></tr>
+<tr style="background:var(--rice2)"><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Running header content</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>Entity name | Report type | Period</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">OSR HeaderLine1 typically carries the entity name; HeaderLine2 the report title (e.g. "Annual Financial Report"); HeaderLine3 the period (e.g. "Year ended 30 June 2024"). All at 8 pt regular. The running header must match the cover page exactly — use OSR Report Variables ($EntityName$, $PeriodEndDate$) to ensure consistency.</td></tr>
+<tr><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">Pages without numbers</td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)"><strong>Cover page, blank pages (suppress)</strong></td><td style="padding:.27rem .5rem;border:1px solid var(--rice4)">In OSR, use the "Change to Landscape / Portrait" formatting element or a "Blank Page" report element template to suppress header/footer on cover and blank pages. Never show a page number on the cover page.</td></tr>
+</tbody></table>
+</div>
+</div>
+
+`,
 tips:`<div class="tip-item"><b>Always Check Your Column Width Budget:</b> <span class="g">Before building any table, calculate: Note col + Subsection col + (n × Value col) + Description col. If it exceeds 170 mm, either reduce value columns to 20 mm or remove the note column if it's not a financial statement table.</span></div>
 <div class="tip-item"><b>Double Underline = Grand Total Value Style:</b> <span class="g">Never try to create a double underline manually. It is applied automatically by the Grand Total Values style. If you don't see it, the row is not classified as a Grand Total in the Smart Table structure — check the Edit Total dialog.</span></div>
 <div class="tip-item"><b>9 pt is the Minimum Print-Safe Body Size:</b> <span class="g">At 8 pt body text, standard laser printers produce slightly blurry output at normal settings. ASIC has informally flagged 8 pt as the legibility floor for lodged documents. 9 pt is safe; 7 pt should only be used for footnotes.</span></div>
 <div class="tip-item"><b>The 3-Size Rule:</b> <span class="g">No page should contain more than 3 distinct font sizes. More creates visual noise. If you find yourself needing a 4th size, reconsider whether that element needs to be differentiated at all.</span></div>
-<div class="tip-item"><b>Signature Space is Non-Negotiable:</b> <span class="g">The ASIC convention for directors' declarations requires visible space for a handwritten signature. 15 mm (≈ 42 pt) is the minimum. Anything less and auditors will note it as a presentation deficiency during review.</span></div>
+<div class="tip-item"><b>Signature Space is Non-Negotiable:</b> <span class="g">The Australian statutory reporting practice convention for directors' declarations requires visible space for a handwritten signature. 15 mm (≈ 42 pt) is the Big-4 professional minimum — ASIC does not formally prescribe physical dimensions, but auditors will note insufficient space as a presentation deficiency during review.</span></div>
 <div class="tip-item"><b>Indent-First = 5–7 mm, Spacing After = 0:</b> <span class="g">When using indent-first style, the first-line indent (5–7 mm) replaces inter-paragraph spacing as the paragraph-boundary signal. Set Spacing After to 0 pt — having both indent and spacing creates excessive visual separation that defeats the purpose.</span></div>`,
 qs:[{q:"A Smart Table has 4 value columns (22 mm each), a note column (7 mm), and a subsection column (7 mm). Standard A4 with 20 mm margins gives a 170 mm printable width. How wide can the description column be before the table overflows?",
 o:["60 mm — 170 − 88 (values) − 14 (note + subsection) = 68 mm, but 60 mm is safer","68 mm — 170 mm total minus 88 mm values minus 14 mm note/subsection columns = 68 mm exactly","82 mm — the margins are included in the 210 mm page width, not subtracted separately","There is no limit — OSR auto-wraps column content"],c:1,
@@ -2841,7 +2998,7 @@ x:"OSR applies double underlines automatically via the Grand Total Values style.
 o:["0.25 pt — as thin as possible to look like one thick line","1 – 1.5 pt — clearly visible as two distinct lines without looking like two separate data rows","3 pt — to ensure the double line is prominent","5 pt — matching the cell padding"],c:1,
 x:"The gap between the two lines of a double underline must be 1–1.5 pt. Less than 0.75 pt merges visually into one thick line. More than 2 pt looks like two separate rows to the reader, which is misleading. OSR's Grand Total Values style applies this gap automatically."},
 {q:"A director's declaration page has a signature line 8 mm above the printed name. An auditor flags this during review. Why?",
-o:["8 mm is acceptable — the ASIC standard is 5 mm minimum","The ASIC convention requires at least 15 mm (≈ 42 pt) above a signature line for a handwritten signature. 8 mm is insufficient for any adult's signature and will be flagged as a presentation deficiency.","Signature spacing is not regulated — the auditor is applying personal preference","The signature space should be below the printed name, not above"],c:1,
+o:["8 mm is acceptable — the standard is 5 mm minimum","The Australian statutory reporting practice convention requires at least 15 mm (≈ 42 pt) above a signature line for a handwritten signature. ASIC does not formally prescribe physical spacing, but 8 mm is insufficient for any adult's signature and will be flagged as a presentation deficiency.","Signature spacing is not regulated — the auditor is applying personal preference","The signature space should be below the printed name, not above"],c:1,
 x:"15 mm is the minimum signature block clearance in Australian statutory reporting practice. At 8 mm, there is physically insufficient space for a handwritten signature, which auditors flag as a presentation deficiency. Use stacked Blank Paragraph elements or a large Spacing Before value to achieve at least 36–42 pt (≈ 13–15 mm) of clear space."}]},
 
 // ══════════════════════════════════════════════════════════════════════════
@@ -3883,12 +4040,7 @@ function uS(){
     tV.textContent=fmtScore;
     const wrap=tV.closest('.score-total-wrap');
     if(wrap){
-      wrap.style.background=score>0?'linear-gradient(135deg,#059669,#047857)':score<0?'linear-gradient(135deg,#dc2626,#991b1b)':'linear-gradient(135deg,#f59e0b,#d97706)';
-      wrap.style.boxShadow=score>0?'0 2px 10px rgba(5,150,105,.5)':score<0?'0 2px 10px rgba(220,38,38,.5)':'0 2px 10px rgba(245,158,11,.4)';
-      const lbTotal=wrap.querySelector('.lb-total');
-      const vlTotal=wrap.querySelector('.vl-total');
-      if(lbTotal)lbTotal.style.color=score!==0?'rgba(255,255,255,.8)':'rgba(0,0,0,.6)';
-      if(vlTotal)vlTotal.style.color=score!==0?'#fff':'#1c1917';
+      wrap.style.background=score>0?'linear-gradient(135deg,#2e6e3e,#1e5530)':score<0?'linear-gradient(135deg,#991b1b,#7f1d1d)':'linear-gradient(135deg,#3a4815,#556b20)';
     }
   }
   // rebuild dots
@@ -3908,7 +4060,7 @@ function uS(){
     if(!dot)return;
     TYPE_CLASSES.forEach(c=>dot.classList.remove(c));
     dot.classList.add(typ);
-    const LABELS={ok:'⚽ Scored (+1)',no:'🧱 Missed (0)',wild73:'🍀 Lucky Shot (+0.73)',wild52:'🎱 Fluke (+0.52)',minus:'🟥 Foul (−1)'};
+    const LABELS={ok:'🥇 Scored (+1)',no:'🚫 Missed (0)',wild73:'🌻 Lucky Shot (+0.73)',wild52:'🍂 Fluke (+0.52)',minus:'🌧️ Foul (−1)'};
     dot.title=LABELS[typ]||'';
   });
 }
