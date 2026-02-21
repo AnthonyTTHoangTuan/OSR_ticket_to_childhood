@@ -199,10 +199,44 @@ box-shadow:0 4px 12px rgba(176,171,58,.12)}
 .score-bar .sep{color:var(--cream4);margin:0 .15rem}
 .qdots{display:flex;flex-wrap:wrap;gap:4px;padding:.15rem 0}
 .qdot{width:13px;height:13px;border-radius:50%;border:2px solid var(--cream3);background:var(--cream2);transition:all .3s;flex-shrink:0}
-.qdot.ok{background:var(--ok);border-color:var(--green2);transform:scale(1.15);box-shadow:0 0 8px rgba(45,155,90,.3)}
-.qdot.no{background:var(--no);border-color:#a02018;transform:scale(1.15);box-shadow:0 0 8px rgba(196,47,28,.3)}
+.qdot.ok{
+  background:var(--ok);border-color:var(--green2);transform:scale(1.2);box-shadow:0 0 8px rgba(45,155,90,.3);
+  font-size:8px;line-height:1;display:flex;align-items:center;justify-content:center;
+}
+.qdot.ok::after{content:'🐸';font-size:8px;line-height:1}
+.qdot.no{
+  background:var(--no);border-color:#a02018;transform:scale(1.2);box-shadow:0 0 8px rgba(196,47,28,.3);
+  font-size:8px;line-height:1;display:flex;align-items:center;justify-content:center;
+}
+.qdot.no::after{content:'🐞';font-size:8px;line-height:1}
+/* 🎲 Wild guess dot — amber/orange, 0.33 pt */
+.qdot.wild{
+  background:linear-gradient(135deg,#f59e0b,#d97706);
+  border-color:#b45309;
+  transform:scale(1.2);
+  box-shadow:0 0 10px rgba(245,158,11,.45);
+  font-size:8px;line-height:1;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;
+}
+.qdot.wild::after{content:'🎲';font-size:7px;line-height:1}
+/* 🌩️ Penalty dot — storm slate, −1 pt */
+.qdot.minus{
+  background:linear-gradient(135deg,#475569,#1e293b);
+  border-color:#334155;
+  transform:scale(1.2);
+  box-shadow:0 0 10px rgba(71,85,105,.55);
+  font-size:8px;line-height:1;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;
+}
+.qdot.minus::after{content:'🌩️';font-size:7px;line-height:1}
 @keyframes dotPop{0%{transform:scale(0.3) rotate(-180deg)}60%{transform:scale(1.3) rotate(10deg)}100%{transform:scale(1.15) rotate(0)}}
 .qdot.ok,.qdot.no{animation:dotPop .4s cubic-bezier(.34,1.56,.64,1) forwards}
+.qdot.wild,.qdot.minus{animation:dotPop .45s cubic-bezier(.34,1.56,.64,1) forwards}
+/* Score bar extra value colours */
+.score-bar .vl-wild{color:#d97706;font-weight:800;font-family:'Baloo 2',cursive;font-size:.8rem}
+.score-bar .vl-minus{color:#475569;font-weight:800;font-family:'Baloo 2',cursive;font-size:.8rem}
+/* Total points badge */
+.score-total-wrap{display:flex;align-items:center;gap:.35rem;background:linear-gradient(135deg,#3a4815,#556b20);border-radius:10px;padding:.18rem .65rem .18rem .5rem;margin-left:.3rem;border:2px solid var(--bo-light);box-shadow:0 2px 8px rgba(58,72,21,.18)}
+.score-total-wrap .lb-total{color:rgba(255,255,255,.7);font-weight:700;font-family:'Baloo 2',cursive;font-size:.68rem;letter-spacing:.3px}
+.score-total-wrap .vl-total{color:#f5f4d0;font-weight:900;font-family:'JetBrains Mono',monospace;font-size:.88rem;letter-spacing:-.01em;min-width:2.2rem;text-align:right}
 
 /* ── SECTIONS ── */
 .section{display:none;animation:fadeUp .45s cubic-bezier(.25,.46,.45,.94)}.section.visible{display:block}
@@ -827,10 +861,17 @@ cursor:pointer;box-shadow:0 4px 18px rgba(58,72,21,.45);transition:.2s;padding:0
 <div class="score-bar">
 <div class="score-bar-top">
 <span class="lb">🐸</span><span class="vl-ok" id="sV">0</span>
-<span class="lb">correct</span>
+<span class="lb">pts</span>
 <span class="sep">·</span>
 <span class="lb">🐞</span><span class="vl-no" id="wV">0</span>
-<span class="lb">incorrect</span>
+<span class="lb">wrong</span>
+<span class="sep">·</span>
+<span class="lb">🎲</span><span class="vl-wild" id="wildV">0</span>
+<span class="lb">wild</span>
+<span class="sep">·</span>
+<span class="lb">🌩️</span><span class="vl-minus" id="minusV">0</span>
+<span class="lb">penalty</span>
+<div class="score-total-wrap"><span class="lb-total">⭐ TOTAL</span><span class="vl-total" id="totalPtsV">0</span></div>
 <span class="vl-prog" id="aV">0 / 0 answered</span>
 </div>
 <div class="qdots" id="qdots"></div>
@@ -2783,7 +2824,443 @@ x:"15 mm is the minimum signature block clearance in Australian statutory report
 // ══════════════════════════════════════════════════════════════════════════
 // FINAL EXAMINATION — READING FORMAT  ★
 // ══════════════════════════════════════════════════════════════════════════
-{id:"final-exam",br:"Final Examination › Reading",t:"Final Examination — Error Identification in a Corporate Reporting Scenario",tg:"rp",isReport:true,
+{id:"final-exam-3",br:"Final Examination › Final Examination",t:"Part 1 — Practical Scenarios",tg:"rp",isReport:true,
+l:`
+<div class="cam-wrap">
+
+<!-- ── HEADER ── -->
+<div class="cam-header">
+  <div class="cam-badge">ONESOURCE SR · Final Examination — Part 1</div>
+  <h2>Practical Scenarios — Data, Import &amp; Report Design</h2>
+</div>
+<div class="cam-meta-bar">
+  <span>Part 1 of 3 &nbsp;|&nbsp; Questions: 40 &nbsp;|&nbsp; Format: Multiple Choice &nbsp;|&nbsp; Full Marks: 40</span>
+  <span class="cam-tv">⏱ Recommended time: 60 min</span>
+</div>
+
+<!-- ── GROUP 1 ── -->
+<div class="cam-q-section" style="margin-bottom:0">
+  <div class="cam-q-hdr">
+    <h4>Questions 1–6 &nbsp;·&nbsp; Report Settings &amp; Variables</h4>
+    <span class="cam-qn">6 Questions · 1 mark each</span>
+  </div>
+  <div class="cam-q-task">
+    <b>Topic:</b> Report Data &amp; Disclosures, table configuration, wording variables, and global user-defined settings.
+  </div>
+</div>
+<div data-fe3-inject="g1"></div>
+
+<!-- ── GROUP 2 ── -->
+<div class="cam-q-section" style="margin-top:20px;margin-bottom:0">
+  <div class="cam-q-hdr">
+    <h4>Questions 7–15 &nbsp;·&nbsp; Trial Balance Import</h4>
+    <span class="cam-qn">9 Questions · 1 mark each</span>
+  </div>
+  <div class="cam-q-task">
+    <b>Topic:</b> Supported file types, import wizard steps, prior-year configuration, exclusions, validation messages, mapping presets, and out-of-balance handling.
+  </div>
+</div>
+<div data-fe3-inject="g2"></div>
+
+<!-- ── GROUP 3 ── -->
+<div class="cam-q-section" style="margin-top:20px;margin-bottom:0">
+  <div class="cam-q-hdr">
+    <h4>Questions 16–25 &nbsp;·&nbsp; Accounts, Categories &amp; Mapping</h4>
+    <span class="cam-qn">10 Questions · 1 mark each</span>
+  </div>
+  <div class="cam-q-task">
+    <b>Topic:</b> Account code rules, deletion constraints, Round Independently, category codes, master assignment import structure, additive imports, sign-dependent mapping, comparative mapping, and entity overrides.
+  </div>
+</div>
+<div data-fe3-inject="g3"></div>
+
+<!-- ── GROUP 4 ── -->
+<div class="cam-q-section" style="margin-top:20px;margin-bottom:0">
+  <div class="cam-q-hdr">
+    <h4>Questions 26–30 &nbsp;·&nbsp; Journals &amp; Report Data</h4>
+    <span class="cam-qn">5 Questions · 1 mark each</span>
+  </div>
+  <div class="cam-q-task">
+    <b>Topic:</b> Holding audit journals, read-only import status, paste options, Report Data typeface legend, and Restore Default vs Revert to Template.
+  </div>
+</div>
+<div data-fe3-inject="g4"></div>
+
+<!-- ── GROUP 5 ── -->
+<div class="cam-q-section" style="margin-top:20px;margin-bottom:0">
+  <div class="cam-q-hdr">
+    <h4>Questions 31–40 &nbsp;·&nbsp; Report Design &amp; Smart Tables</h4>
+    <span class="cam-qn">10 Questions · 1 mark each</span>
+  </div>
+  <div class="cam-q-task">
+    <b>Topic:</b> Margin handling, safe deletion, user permissions, full-report Design view, style sets, paragraph Add Data, element references, Smart Table Non-zero, shared column headers, and note column visibility.
+  </div>
+</div>
+<div data-fe3-inject="g5"></div>
+
+</div>
+`,
+err:``,
+qs:[
+  {q:"Q1 — You inherit an entity where face tables look fine, but most narrative disclosures are blank. Your lead says: 'Start where data not captured in the trial balance is managed.' What do you open first?",
+   o:["Import/Account Assignment, because mapping controls all disclosure text","Reports, because missing narrative is fixed by rendering the full report","Report Data and Disclosures, because it manages non-TB report information","Entity Summary, because entity settings automatically fill narratives"],
+   c:2,
+   x:"Report Data associates data with reports that is not captured in the trial balance, and Additional Disclosures supports disclosure content. Import/Account Assignment handles GL mapping only; rendering Reports does not fill blank narrative; Entity Summary manages entity-level settings, not narrative disclosure data."},
+
+  {q:"Q2 — You set Table Columns (Full Year), but the report still shows an unexpected column set. What dependency is most likely driving the mismatch?",
+   o:["Whether the report is rendered in Preview vs Design mode","Whether the entity is being reported as Consolidated vs Parent","Whether Auto Refresh Reports is switched on","Whether the report title was changed in Report Wording Variables"],
+   c:1,
+   x:"Table Columns are linked to Entity Structure (Consolidated vs Parent). Changing between these modes affects which column set is applied. Preview vs Design mode, Auto Refresh, and Report Wording Variables do not govern the column set selection."},
+
+  {q:"Q3 — You expect to see Comparative (Restatement) inside Report Table Settings, but the tab doesn't appear. What is the most probable cause?",
+   o:["Consolidated Comparative (Restatement) is OFF in Entity & Period Settings","The report is in Preview mode, so the tab is hidden","Table Header overrides are ON, so Restatement is suppressed","Parent Only is ON, which permanently disables all comparative controls"],
+   c:0,
+   x:"The Restatement tab appears only if Consolidated Comparative (Restatement) is switched ON in Entity & Period Settings. Preview mode, Table Header overrides, and Parent Only settings do not hide this specific tab."},
+
+  {q:"Q4 — A reviewer needs to adjust face-table header dates and scale labels (such as the thousands indicator) without touching report content. Which Report Table Settings tab is designed for this?",
+   o:["Table Columns (Full Year) — controls which columns appear","Note Heading Numbering — controls note heading format","Table Header (Full Year) — overrides header dates and scaling text","Report Variables — rewrites labels across the whole report"],
+   c:2,
+   x:"Table Header (Full Year) is the dedicated tab for overriding column header dates and scaling text. Table Columns controls column selection, not header text. Note Heading Numbering governs note numbering style only. Report Variables perform text replacement across the entire report, not targeted table-header overrides."},
+
+  {q:"Q5 — The partner wants 'Income Statement' to become 'Profit and Loss Statement' everywhere, quickly and consistently. What is the best tool?",
+   o:["Edit Style Set, because fonts also control headings","Report Variables, because each element can be overwritten","Report Wording Variables, because it replaces words across the report","Global User Defined Settings, because switches can rename headings"],
+   c:2,
+   x:"Report Wording Variables is designed for exactly this use-case — replacing words consistently throughout the entire report. Edit Style Set manages fonts and paragraph styling. Report Variables handle individual element values. Global User Defined Settings manage logic switches, not textual replacements."},
+
+  {q:"Q6 — You want a global YES/NO switch that report logic can reference to show or hide a note. Where is it maintained?",
+   o:["Audit Log, because approvals control display states","Global User Defined Settings, because reports can reference them","Report Wording Variables, because wording toggles visibility","Table Columns (Full Year), because column choices drive note display"],
+   c:1,
+   x:"Global User Defined Settings can be referenced in reports for logic and display control, making them the correct place for a reusable YES/NO switch. Audit Log records actions but does not drive display logic. Report Wording Variables replace text strings. Table Columns controls column visibility, not note-level show/hide logic."},
+
+  {q:"Q7 — A client asks which file formats OSR can import in the TB import wizard. Which set is correct?",
+   o:["XLS/XLSX, CSV, and delimited TXT files","PDF, DOCX, and XLSX files only","JSON, XML, and CSV files only","CSV only, because Excel must be converted first"],
+   c:0,
+   x:"OSR supports Excel (XLS/XLSX), CSV, and text-delimited files in the TB import wizard. PDF and DOCX are not supported import formats. JSON and XML are not listed as supported. CSV-only is incorrect — Excel files are accepted directly."},
+
+  {q:"Q8 — In Import Wizard Step 2, you need to identify headers and assign the code/description columns. Which action matches the documented procedure?",
+   o:["Use dropdowns to select header rows; tick the code and description columns","Tick the header rows; use column dropdowns to set code/description columns","Drag the header range into a mapping pane and lock the grid","Use Auto-detect, because OSR infers code/description reliably"],
+   c:1,
+   x:"Step 2 instructs ticking the header rows first, then using the column dropdowns to assign which columns hold account codes and descriptions. The reverse order (dropdowns first) is incorrect. Drag-and-drop and Auto-detect are not described as the correct procedure."},
+
+  {q:"Q9 — You try to map a prior-year amount column, but OSR won't allow correct selection of the prior end date. What must be true first?",
+   o:["The prior year must be configured through Report Table Settings","The prior period must exist — create it via Journals → Add Period","The prior column must be mapped as Category Value instead of Amount","The report must be opened in Design mode before importing"],
+   c:1,
+   x:"The prior period must already exist before you can select its end date during import. Create the period first via Journals using Add Period. Report Table Settings, column type selection, and Design mode do not unblock prior-period date selection."},
+
+  {q:"Q10 — You are importing prior-year values from a TB file. Which pair of settings is essential?",
+   o:["Select Amount, then change End Date to the previous period","Select Category Value, then change Start Date to the previous period","Select Account Description, then tick Year To Date for the column","Select Variable Value, then set Entity Code to head entity"],
+   c:0,
+   x:"For prior-year import, the correct configuration is to select Amount as the column type and then change the End Date to the previous period. Category Value, Account Description, and Variable Value are not the correct column type for TB amount data."},
+
+  {q:"Q11 — Your TB file includes subtotal/total rows (Assets subtotal, Equity subtotal). What should you do in the exclusion screen?",
+   o:["Map subtotal rows to suspense so totals net out","Import all rows; OSR will auto-ignore totals","Tick the subtotal rows and click Add to move them into Ignored Accounts","Import totals then reverse them using a Paste Reversed journal"],
+   c:2,
+   x:"The correct procedure is to tick the subtotal/total rows and click Add to move them into the Ignored Accounts list, preventing double-counting. OSR does not auto-ignore totals. Mapping to suspense and paste-reversing are not the documented approaches."},
+
+  {q:"Q12 — At the final import step, you see red and yellow validation messages. Which interpretation is correct?",
+   o:["Yellow blocks import; red is just a warning","Red blocks import; yellow warns but does not prevent completion","Both colors block import until all items are fixed","Colors depend on role and do not affect import behavior"],
+   c:1,
+   x:"Red errors must be addressed before the import can proceed; yellow warnings alert you to potential issues but do not prevent completion. The reverse interpretation is incorrect. Both blocking and role-dependent color interpretations are also wrong."},
+
+  {q:"Q13 — You want your import mapping to appear as a selectable preset on the first screen next month. Which choice is designed for that?",
+   o:["Update, because it saves a preset without changing defaults","Don't Save, because OSR caches settings until you log out","Save As, because it stores a uniquely named preset for reuse","Continue, because completion automatically creates presets"],
+   c:2,
+   x:"Save As saves the current settings under a unique name and makes them selectable as a preset in future import sessions. Update overrides the entity's default settings. Don't Save discards changes. Continue does not create any named preset."},
+
+  {q:"Q14 — A junior clicked Update and now everyone sees different default import settings for the entity. What did Update do?",
+   o:["It created a named preset but left defaults unchanged","It overrode the entity's default import settings going forward","It saved only the ignored accounts list","It updated the report template version"],
+   c:1,
+   x:"Update overrides the entity's default import settings going forward, affecting all users working with that entity. It does not create a named preset, save only the ignored accounts list, or touch the report template version."},
+
+  {q:"Q15 — After import, the TB is out of balance. What does OSR do automatically?",
+   o:["It rejects the import and sends you back to Step 2","It creates an Audit Adjustment journal automatically","It posts the difference to the balancing Suspense account","It issues a warning only and leaves totals unchanged"],
+   c:2,
+   x:"When the TB does not balance, OSR automatically posts the difference to the designated Suspense account. The import is not rejected. An Audit Adjustment journal is not created automatically. OSR does not simply issue a warning and leave totals unchanged."},
+
+  {q:"Q16 — You imported accounts and notice a code is wrong. Which statement matches the documented rules?",
+   o:["Account codes can be edited only before mapping exists","Account codes cannot be edited; they can only be deleted","Account codes can be edited only by administrators","Account codes can be edited via XML export and reimport"],
+   c:1,
+   x:"Account codes cannot be edited once created — they can only be deleted. This applies regardless of whether mapping exists, what role you hold, or whether you attempt an XML workaround. Deletion is the only recourse for an incorrect account code."},
+
+  {q:"Q17 — You try deleting an account and OSR blocks it. What is the most likely reason?",
+   o:["The account is used in a Smart Table, so it becomes locked","The account is referenced by a wording variable entry","The account has TB/journal data; delete dependent entries first","The account is set to Round Independently, which prevents deletion"],
+   c:2,
+   x:"Accounts with associated trial balance or journal data cannot be deleted until those dependent entries are removed first. Smart Table usage, wording variable references, and the Round Independently setting do not block account deletion."},
+
+  {q:"Q18 — You're deciding whether to tick Round Independently on an account. What does it control?",
+   o:["Whether the account rounds alone or together with accounts in its assignment grouping","Whether the account is scaled separately from the entity's reporting scale","Whether rounding applies only to tables, not to paragraphs","Whether the account is excluded from consolidated comparatives"],
+   c:0,
+   x:"Round Independently controls whether the account rounds on its own or together with other accounts in the same assignment grouping. It does not relate to scaling, restrict rounding to tables only, or affect comparative inclusion."},
+
+  {q:"Q19 — While creating categories, the guide recommends ticking Round Independently. Why?",
+   o:["It reduces the need for restatement columns","It forces all child accounts to share the same sign","It allows the category to round independently rather than with other categories","It links the category automatically to smart table sections"],
+   c:2,
+   x:"Rounding independently means the category rounds on its own rather than rounding together with other categories in the same group. This is the recommended setting for accurate presentation. It has no effect on restatement columns, sign behaviour, or smart table linking."},
+
+  {q:"Q20 — You saved a category, then realized the code should be different. What does the documented rule imply?",
+   o:["Category code is locked after save; changes are restricted","Category code can be changed if no accounts are mapped","Category code can be changed if rounding is turned off","Category code can be changed by exporting Excel and reimporting"],
+   c:0,
+   x:"Once a category is saved, the category code cannot be changed. This restriction applies regardless of whether accounts are mapped, what rounding setting is used, or whether you attempt an Excel export workaround."},
+
+  {q:"Q21 — You're building the master account assignment import file. Which column structure is correct?",
+   o:["A: Account code, B: Category code, C: Debit/Credit/Always indicator","A: Category name, B: Account description, C: Period end date","A: Entity code, B: Account code, C: Category folder name","A: Account code, B: Category code, C: Current period amount"],
+   c:0,
+   x:"The required three-column structure for assignment import is: Column A = Account code, Column B = Category code, Column C = Debit/Credit/Always indicator. Category name, entity code, period end date, folder name, and amount are not part of this structure."},
+
+  {q:"Q22 — A manager says account assignment imports are 'additive.' What practical risk follows?",
+   o:["Imports always overwrite everything, including accounts not in the file","Partial files can update some assignments while leaving old ones untouched","Imports delete all existing assignments first","Imports automatically split debit/credit mapping without rules"],
+   c:1,
+   x:"Additive imports apply new or updated assignments on top of existing ones — they do not overwrite accounts absent from the file. This means a partial file may update some mappings while leaving stale or incorrect assignments untouched for accounts not included."},
+
+  {q:"Q23 — You need an account to map differently when positive versus negative. Which pair of approaches matches the documented methods?",
+   o:["Use Data Capture; or change Entity Structure from Parent to Consolidated","Split into debit/credit within Assignment; or use two lines in the mapping file (Debit/Credit)","Use Report Wording Variables; or apply Table Header overrides","Export Audit Log; or paste reversed journals after import"],
+   c:1,
+   x:"The two sign-dependent mapping approaches are: splitting into debit and credit entries within Account Assignment, or using two separate lines in the mapping import file with Debit and Credit indicators in Column C. The other options do not address sign-based mapping."},
+
+  {q:"Q24 — A senior asks: 'Do we need separate mapping for comparative figures?' What does the documented note imply?",
+   o:["Mapping for the accounting period applies to all period figures, including comparative","Mapping must be duplicated for comparative periods separately","Mapping applies only to current year, never to comparative","Mapping applies only after you recalculate expressions"],
+   c:0,
+   x:"Mapping applies within the accounting period and covers all period figures including comparative. There is no need to duplicate mapping for comparative periods. Mapping is not restricted to current year only, and expression recalculation does not affect when mapping applies."},
+
+  {q:"Q25 — A consolidated group wants subsidiary mapping different from head office, but wants master preserved. Which behaviour is described?",
+   o:["Master mapping is greyed; entity-specific mapping appears in black and overrides","Entity mapping creates a separate category tree that replaces master everywhere","Overrides must be done by editing Smart Tables","Overrides permanently replace master mapping for all entities"],
+   c:0,
+   x:"At entity level, master mapping is displayed greyed out to show it is inherited, while entity-specific overrides appear in black and take precedence for that entity only. A revert option allows returning to master. The other options incorrectly describe replacement, Smart Table editing, or permanent global changes."},
+
+  {q:"Q26 — Auditors want proposed journals stored but not applied yet. Which field best matches that requirement?",
+   o:["Read only = Yes","Included = No","Classification = Audit Adjustments","End Date locked"],
+   c:1,
+   x:"Setting Included = No allows a journal to exist in the system and be visible for review without affecting any totals or report figures. It can be switched to Included = Yes when ready to apply. Read only, classification, and end date locking do not provide this inactive-but-stored behaviour."},
+
+  {q:"Q27 — You see journals marked Read only = Yes and cannot edit them. What is the most consistent explanation?",
+   o:["They were imported rather than manually entered","They were closed when the period was locked","They were referenced by a report element","They were copied using Paste Without Values"],
+   c:0,
+   x:"Read only = Yes is the status assigned to imported journals. Manually entered journals are marked Read only = No and remain editable. Period locking, report element references, and Paste Without Values do not set the Read only flag to Yes."},
+
+  {q:"Q28 — You want to reuse journal lines next period but set all values to zero. Which tool option does that?",
+   o:["Paste","Paste Without Values","Paste Reversed","Export to Excel"],
+   c:1,
+   x:"Paste Without Values copies the journal structure (account codes, descriptions, classifications) and resets the Value column to zero, ready for new amounts. Paste copies values as-is. Paste Reversed copies with sign-flipped values. Export to Excel does not create a new journal."},
+
+  {q:"Q29 — In a Report Data grid, a cell shows bold italic formatting. What does this indicate?",
+   o:["Normal manual data input","An expression value","An overwritten expression value","A locked template default"],
+   c:2,
+   x:"The typeface legend defines bold italic as indicating a cell where an expression value has been overwritten with a manual entry. Plain text indicates normal manual input. An unmodified expression has its own distinct formatting. Locked template defaults are not represented by bold italic."},
+
+  {q:"Q30 — A cell was altered and you want the original template value, not merely the default expression. Which action is correct?",
+   o:["Remove Expression","Restore Default","Default Definitions","Revert to Template"],
+   c:3,
+   x:"Revert to Template restores the original value as defined in the source template, which is distinct from Restore Default (which applies the default expression value). Remove Expression clears the expression entirely. Default Definitions manages the definitions list, not individual cell values."},
+
+  {q:"Q31 — After changing margins, the report spins forever and won't load. What does the documented guidance recommend?",
+   o:["Recalculate Expressions first, then reopen","Readjust margins because overlapping margins can prevent report loading","Turn off Auto Refresh to stop the loop","Export to PDF to force rendering"],
+   c:1,
+   x:"Overlapping margins can cause the report to stop loading entirely. The recommendation is to readjust the margins so they do not overlap, which allows the report data to display. Recalculating expressions, turning off Auto Refresh, and exporting to PDF do not resolve a margin-caused loading failure."},
+
+  {q:"Q32 — A junior wants to delete a standard paragraph to remove it from the report. What does the guide recommend instead?",
+   o:["Cut it and paste into another folder","Set Display to Never rather than deleting since there is no Undo","Rename the element to hide it from numbering","Disable editing permissions temporarily"],
+   c:1,
+   x:"There is no Undo for deletion in OSR. The safe approach is to set the element's Display property to Never, which hides it without permanently removing it. Cutting to another folder, renaming, and disabling permissions do not achieve the same safe outcome."},
+
+  {q:"Q33 — You want to stop users from deleting report elements. Where does the guide say to control this?",
+   o:["Administration → edit user → remove Delete Report Element permission","Report Options → disable deletion for that report only","Audit Log → lock delete actions for selected dates","Period Setup → disable deletion when period closes"],
+   c:0,
+   x:"Deletion prevention is managed via user permissions under Administration by removing the Delete Report Element permission for the relevant user. Report Options, Audit Log, and Period Setup do not contain controls for restricting report element deletion."},
+
+  {q:"Q34 — You are in Design mode and want the full report displayed rather than a single folder. What is the correct action?",
+   o:["Click the report name and it auto-loads all folders","Ellipsis on any element → Go To","Ellipsis on the top report folder → View","Switch to Preview; full view is Preview-only"],
+   c:2,
+   x:"Using the ellipsis menu on the top report folder and selecting View displays the full report in Design mode. Clicking the report name, using Go To on a single element, and switching to Preview are not the documented approach for this workflow."},
+
+  {q:"Q35 — A report needs font and paragraph styling updates, not watermark changes. Which menu item should you open?",
+   o:["Edit watermark","Edit style set","Spelling","Review comments"],
+   c:1,
+   x:"Edit Style Set opens the styling dialog covering fonts, paragraph settings, and related options. Edit Watermark is a separate function for watermark configuration only. Spelling and Review Comments serve different review purposes and have no styling controls."},
+
+  {q:"Q36 — You are editing a paragraph and need to insert the total of all accounts mapped to a category. Which Add Data choice fits?",
+   o:["Account Value","Manual Expression","Category Value","Data Capture"],
+   c:2,
+   x:"Category Value inserts the aggregated total of all accounts mapped to a specified category into the paragraph text. Account Value inserts a single account's balance. Manual Expression requires writing a custom formula. Data Capture is a different data entry mechanism."},
+
+  {q:"Q37 — You insert a Report Element Reference, but it displays blank. Which condition is most likely correct?",
+   o:["Must export to PDF before references resolve","Must view the full report and the referenced element must be switched on","Must recalculate expressions and open Preview","Must put the reference only in Smart Tables"],
+   c:1,
+   x:"Report Element References display correctly only when the full report is viewed and the referenced element itself is switched on (visible). Partial section views can leave references unresolved. PDF export, expression recalculation, and Smart Table placement are not requirements for reference resolution."},
+
+  {q:"Q38 — A Smart Table section with Display = Non-zero disappears. What does Non-zero mean in this context?",
+   o:["Show only if at least one line item has a balance","Show only if every line item is non-zero","Show only in Preview mode","Show only if a note column exists"],
+   c:0,
+   x:"Non-zero means the section is displayed when one or more of its line items have a balance. It does not require all line items to be non-zero, is not restricted to Preview mode, and has no dependency on whether a note column is present."},
+
+  {q:"Q39 — You built shared column headers and OSR prevents adding the same column to another shared header. Why?",
+   o:["Shared headers work only for Parent columns","A column used in one shared header cannot be reused in another shared header","Shared headers require note columns beside the description column","Shared headers force all value columns to become calculation columns"],
+   c:1,
+   x:"Once a column is assigned to a shared header group, it cannot be included in any other shared header group. This is a hard system constraint. Parent-only restriction, note column requirements, and calculation column forcing are not the reason for this block."},
+
+  {q:"Q40 — You set Note Column display to Non-zero, but the column remains hidden even though the table has numbers. What is the best explanation?",
+   o:["Non-zero requires at least one active note reference in a displayed section/total","Non-zero requires column filters set to Current Period only","Non-zero requires disabling the numbering inclusion settings","Non-zero requires opening the report via the Preview icon"],
+   c:0,
+   x:"Note Column Non-zero displays only when the column contains at least one active note reference and the section or total that contains it is itself displayed. Having numeric values in the table is not sufficient — the note reference condition must also be met. Current Period filters, numbering settings, and Preview icon are not relevant to this rule."}
+]},
+
+{id:"final-exam-2",br:"Final Examination › Final Examination",t:"Part 2 — Applied Knowledge",tg:"rp",isReport:true,
+l:`
+<div class="cam-wrap">
+
+<!-- ── HEADER ── -->
+<div class="cam-header">
+  <div class="cam-badge">ONESOURCE SR · Final Examination — Part 2</div>
+  <h2>Applied Knowledge — Functionality, Menus &amp; Variables</h2>
+</div>
+<div class="cam-meta-bar">
+  <span>Part 2 of 2 &nbsp;|&nbsp; Questions: 18 &nbsp;|&nbsp; Format: Multiple Choice &nbsp;|&nbsp; Full Marks: 18</span>
+  <span class="cam-tv">⏱ Recommended time: 27 min</span>
+</div>
+
+<!-- ── GROUP 1 ── -->
+<div class="cam-q-section" style="margin-bottom:0">
+  <div class="cam-q-hdr">
+    <h4>Questions 1–6 &nbsp;·&nbsp; Additional Functionality</h4>
+    <span class="cam-qn">6 Questions · 1 mark each</span>
+  </div>
+  <div class="cam-q-task">
+    <b>Topic:</b> Backup &amp; restore, period locking, user IDs, passwords, and template publishing.
+  </div>
+</div>
+<div data-fe2-inject="g1"></div>
+
+<!-- ── GROUP 2 ── -->
+<div class="cam-q-section" style="margin-top:20px;margin-bottom:0">
+  <div class="cam-q-hdr">
+    <h4>Questions 7–10 &nbsp;·&nbsp; Menu Structure</h4>
+    <span class="cam-qn">4 Questions · 1 mark each</span>
+  </div>
+  <div class="cam-q-task">
+    <b>Topic:</b> Restatement settings, suspense &amp; rounding accounts, note numbering, and audit log export.
+  </div>
+</div>
+<div data-fe2-inject="g2"></div>
+
+<!-- ── GROUP 3 ── -->
+<div class="cam-q-section" style="margin-top:20px;margin-bottom:0">
+  <div class="cam-q-hdr">
+    <h4>Questions 11–13 &nbsp;·&nbsp; Report Element Templates</h4>
+    <span class="cam-qn">3 Questions · 1 mark each</span>
+  </div>
+  <div class="cam-q-task">
+    <b>Topic:</b> Landscape/portrait orientation elements, Add Report Pane vs Add Report Element, and note hierarchy.
+  </div>
+</div>
+<div data-fe2-inject="g3"></div>
+
+<!-- ── GROUP 4 ── -->
+<div class="cam-q-section" style="margin-top:20px;margin-bottom:0">
+  <div class="cam-q-hdr">
+    <h4>Questions 14–18 &nbsp;·&nbsp; Category Summary &amp; Variable Names</h4>
+    <span class="cam-qn">5 Questions · 1 mark each</span>
+  </div>
+  <div class="cam-q-task">
+    <b>Topic:</b> Date display variables, variable insertion, internal vs narrative variables, column heading labels, and reference variables.
+  </div>
+</div>
+<div data-fe2-inject="g4"></div>
+
+</div>
+`,
+err:``,
+qs:[
+  {q:"Q1 — Right before a major late-night edit session, you want a reversible checkpoint of the selected period's state. What is the correct approach?",
+   o:["Create a backup for that period, enter a backup description, and save it","Publish the template so the period can be reverted through template history","Close the financial period to block changes, then reopen it after sign-off","Export the audit log to Excel so you can reconstruct the prior state later"],
+   c:0,
+   x:"Create Backup is the explicit checkpoint feature for a period. Entering a description and saving it creates a named, reversible snapshot. Closing only locks edits, publishing creates a new template version (not a period snapshot), and the Audit Log export is evidence — not a rollback mechanism."},
+
+  {q:"Q2 — You applied an unwanted change and need to roll back the period to an earlier saved snapshot. What is the correct procedure?",
+   o:["Open Reports, reset the style set to default, then rebuild the report output","Open Administration, edit Variables, choose a date range, and apply the rollback","Open the entity dropdown, choose Restore Backup, select one backup, and restore it","Go to Period Setup, open Reporting Period Sets, then restore the earlier period set"],
+   c:2,
+   x:"Restore is performed from the reporting entity dropdown via Restore Backup. You select the desired backup from the list and confirm the restore. Style sets, Variables, and Period Sets have no rollback function for period state."},
+
+  {q:"Q3 — Your manager wants the period locked for sign-off, but also wants the ability to unlock it if auditors query changes. What is the correct approach?",
+   o:["Use Reports to lock the report structure, then unlock it by switching back to Design mode","Use Period Setup to change the journal classification to Closed, then switch it back to Open","Use the entity dropdown to close the financial period, then later open it again with confirmation","Use Administration to disable the edit menus, then re-enable them after the audit review"],
+   c:2,
+   x:"Close Financial Period and Open Financial Period are both performed from the entity dropdown, each with a confirmation prompt. This is the documented lock/unlock mechanism. Journal classification, Design mode, and Administration menu toggling do not perform this function."},
+
+  {q:"Q4 — A new user cannot complete registration because their Universal ID does not meet the documented rules. Which ID is valid?",
+   o:["alex%nguyen@ufs.com.au","alex nguyen@ufs.com.au","alex.nguyen@ufs.com.au","a.ng@uf"],
+   c:2,
+   x:"Universal IDs must be at least 8 characters and use only alphanumerics plus the special characters . - _ @. The % character is not permitted (eliminates A), spaces are not permitted (eliminates B), and a.ng@uf is only 8 characters but '@uf' implies an invalid domain — alex.nguyen@ufs.com.au is the only fully compliant option."},
+
+  {q:"Q5 — While adding a user, you must set an initial password that passes the documented complexity rules. Which password qualifies?",
+   o:["TempPass11","TempPass!!","temppass1!","TempPass1!"],
+   c:3,
+   x:"The initial password must be ≥8 characters and include at least one uppercase letter, one lowercase letter, one number, and one non-alphanumeric character. TempPass11 has no special character; TempPass!! has no number; temppass1! has no uppercase. Only TempPass1! satisfies all four requirements."},
+
+  {q:"Q6 — A template entity has been improved and you want member entities to be able to adopt the new template version. What is the correct step?",
+   o:["Publish the template from the Administration menu after making the changes in the template entity","Reimport account mapping so member entities link to the newest template version immediately","Export the updated report to PDF so member entities refresh their layout on the next open","Edit the entity structure so member entities inherit template changes automatically without updates"],
+   c:0,
+   x:"Publishing the template is what creates a new template version that member entities can then choose to update to. Reimporting accounts, exporting to PDF, and editing entity structure do not create a publishable template version."},
+
+  {q:"Q7 — You need to switch on a restatement column for comparatives. Which menu location is correct?",
+   o:["Open Administration and adjust the system under Regional Settings","Open Entity Summary and use Report Options under Entity and Period Settings","Open Period Setup and edit the reporting period sets used for tables","Open Entity Summary and change the wording under Report Wording Variables"],
+   c:1,
+   x:"Restatement is controlled under Entity Summary's Report Options in the Entity and Period Settings area. Regional Settings, Period Sets, and Wording Variables do not contain the restatement column toggle."},
+
+  {q:"Q8 — Before testing imports, you must change which accounts OSR uses for suspense and rounding allocations. Where is this configured?",
+   o:["Open Period Setup and select Rounding and Suspense Accounts for the entity","Open Reporting Period Details and set suspense and rounding at period level","Open Predefined Lists and change the suspense and rounding list entries","Open Transactional Import and set suspense and rounding in the import wizard"],
+   c:0,
+   x:"Rounding and suspense accounts are configured from Period Setup via the dedicated Rounding and Suspense Accounts option. Reporting Period Details, Predefined Lists, and the Import Wizard do not host this configuration."},
+
+  {q:"Q9 — You want to change the default numbering style used for note headings in the Notes to the Financial Statements. Where is this setting?",
+   o:["Open Period Setup and edit the journal classification to control numbering styles","Open Entity Summary, go to Report Settings, and use Note Heading Numbering","Open Administration, edit Variables, and overwrite the note numbering expression","Open Online Help and apply the recommended numbering template from guidance"],
+   c:1,
+   x:"Note heading numbering is changed under Entity Summary → Report Settings → Note Heading Numbering. Journal classification, Variables, and Online Help do not contain a note numbering format control."},
+
+  {q:"Q10 — You need a report of who changed what, filtered to last week, and exported as an Excel file for an auditor. What is the correct path?",
+   o:["Open Report Contents Page, filter sections, and export the contents list to Excel","Open Administration, use Audit Log, filter by date range, and export to Excel","Open Accounts Maintenance, filter changed accounts, and export the accounts list","Open Report Wording Variables, filter changed labels, and export the wording list"],
+   c:1,
+   x:"The Audit Log is accessed from Administration, supports date-range filtering, and can be exported to Excel for audit evidence. Report Contents, Accounts Maintenance, and Wording Variables do not capture user-action audit trails."},
+
+  {q:"Q11 — The notes section must become landscape starting at a specific insertion point, and the break must be explicit. What should you insert?",
+   o:["Insert a manual Page Break, then assume the next pages inherit landscape automatically","Insert Change to Landscape so orientation changes onward and a page break is created","Insert a Cover Page, then use it as the trigger to switch orientation to landscape","Insert a Blank Page, then edit the blank page to force landscape for the next section"],
+   c:1,
+   x:"Change to Landscape changes orientation from that insertion point onward and simultaneously creates a page break. A manual Page Break does not change orientation; Cover Page and Blank Page do not trigger orientation changes."},
+
+  {q:"Q12 — A junior can't find 'Change to Portrait' in the Add Report Element list. Why is it missing?",
+   o:["Formatting elements appear only under Pages, which is hidden unless you are in Preview","Formatting elements are inserted via Add Report Pane, not via Add Report Element","Formatting elements are restricted to administrators through the Manage Navigation panel","Formatting elements are available only after a style set is edited and saved"],
+   c:1,
+   x:"Change to Portrait is a Formatting Element and is inserted through Add Report Pane, not Add Report Element. It has not been removed — it simply lives in a different insertion pathway. Preview mode, administrator restrictions, and style set saves do not affect its availability."},
+
+  {q:"Q13 — Your team inserts director note headings in the report pane and the note hierarchy becomes inconsistent. What is the correct insertion method?",
+   o:["Insert director note headings as Bullets so numbering and nesting are forced by styles","Insert director note headings within the Report Structure so folder levels preserve hierarchy","Insert director note headings as a Sub TOC so the structure is auto-generated each run","Insert director note headings as Empty Elements so XML logic controls the hierarchy"],
+   c:1,
+   x:"Director report note title elements should be inserted in the Report Structure to preserve folder-level hierarchy. Bullets, Sub TOC, and Empty Elements do not maintain the structural hierarchy that OSR uses to drive note numbering and nesting."},
+
+  {q:"Q14 — You need to show the current period end date as a long-form date like '30 June 2026' within a paragraph. Which variable is correct?",
+   o:["Use PeriodEnd so the date displays in dd/mm/yyyy format for statements","Use CurrentPeriodEndShort so the date displays as dd mmmm without year","Use CurrentPeriod so the date displays as the year only for headings","Use CurrentPeriodEndLong so the date displays in dd mmmm yyyy format"],
+   c:3,
+   x:"CurrentPeriodEndLong is the long-form date variable displaying in dd mmmm yyyy format (e.g. 30 June 2026). PeriodEnd uses a numeric dd/mm/yyyy format, CurrentPeriodEndShort omits the year, and CurrentPeriod shows the year only."},
+
+  {q:"Q15 — A staff member typed a variable name into a paragraph, but it displayed as plain text instead of resolving. What is the correct method?",
+   o:["Insert the variable through Account Maintenance so paragraphs can reference it","Insert the variable through Edit Paragraph and Add Data so it resolves properly","Insert the variable through Report Contents so it becomes usable in paragraphs","Insert the variable through Audit Log export so OSR converts it into live text"],
+   c:1,
+   x:"Variables resolve when inserted via Edit Paragraph → Add Data. Typing the variable name directly into a paragraph treats it as literal plain text — OSR will not parse or resolve it. Account Maintenance, Report Contents, and Audit Log export have no variable insertion function for paragraphs."},
+
+  {q:"Q16 — You are tempted to use an internal variable in a narrative paragraph to standardise wording across the report. Is this appropriate?",
+   o:["Internal variables replace mapping logic and are best used to drive category totals in tables","Internal variables are used to generate note references and note page numbers in citations","Internal variables are mainly for specific layout/formula purposes, not general narrative wording","Internal variables are the preferred method for changing standard phrases like 'financial statements'"],
+   c:2,
+   x:"Internal variables are intended for specific technical purposes such as layout control, column widths, or formula logic — not for general narrative wording. For standardising narrative phrases, standard wording variables or manual editing are appropriate. Using internal variables for narrative text risks unintended structural side-effects."},
+
+  {q:"Q17 — A partner asks why table headings show '$\\'000' rather than '$m'. Which internal variable controls that label?",
+   o:["Entity controls the label, because consolidated and parent use different currency labels","ColumnHeading controls the default label choices such as $ / $\\'000 / $m","Rounding controls the label directly, because scaling derives from rounding selection","Scaling controls the label directly, because headings always mirror scaling settings"],
+   c:1,
+   x:"ColumnHeading is the internal variable that controls the displayed currency/scale label options (e.g. $, $'000, $m) used in table column headings. Rounding and Scaling affect the numeric values but do not directly control the heading label text; Entity controls entity-level identifiers, not heading labels."},
+
+  {q:"Q18 — You see variables such as ShowConsolComparatives and ShowRestatedParent in the template. Should you edit them freely?",
+   o:["They are standard wording variables intended to be edited to keep wording consistent across reports","They are internal layout variables intended to set widths and spacing values across the report","They are import mapping variables intended to assign GL codes to categories during mapping","They are reference variables used for report logic/structure and usually shouldn't be edited for accounts"],
+   c:3,
+   x:"ShowConsolComparatives and ShowRestatedParent are reference variables used by the template to drive show/hide logic and report structure. They are generally not edited during normal report preparation — doing so can suppress or expose entire report sections unexpectedly. They are not wording variables, layout variables, or import mapping variables."}
+]},
+
+{id:"final-exam",br:"Final Examination › Final Examination",t:"Part 3 — Error Identification",tg:"rp",isReport:true,
 l:`
 <style>
 /* ── CAMBRIDGE EXAM STYLES ── */
@@ -2852,11 +3329,11 @@ l:`
 
 <!-- ── HEADER ── -->
 <div class="cam-header">
-  <div class="cam-badge">ONESOURCE SR · Final Examination</div>
+  <div class="cam-badge">ONESOURCE SR · Final Examination — Part 3</div>
   <h2>Error Identification in a Corporate Reporting Scenario</h2>
 </div>
 <div class="cam-meta-bar">
-  <span>Questions: 6 &nbsp;|&nbsp; Format: Sentence Error Identification &nbsp;|&nbsp; Full Marks: 6</span>
+  <span>Part 3 of 3 &nbsp;|&nbsp; Questions: 6 &nbsp;|&nbsp; Format: Sentence Error Identification &nbsp;|&nbsp; Full Marks: 6</span>
   <span>Recommended Time: <span class="cam-tv">45 min</span></span>
 </div>
 
@@ -2923,7 +3400,7 @@ l:`
 <!-- ── NOTE FOR QUIZ QUESTIONS ── -->
 <div class="cam-q-section">
   <div class="cam-q-hdr">
-    <h4>Questions 1–6 &nbsp;·&nbsp; Sentence Error Identification</h4>
+    <h4>Part 3 · Questions 1–6 &nbsp;·&nbsp; Sentence Error Identification</h4>
     <span class="cam-qn">6 Questions · 1 mark each</span>
   </div>
   <div class="cam-q-task">
@@ -2969,7 +3446,6 @@ qs:[
 ]}
 
 ];
-
 // ═══════════════════════════════════
 //  ENGINE
 // ═══════════════════════════════════
@@ -2996,7 +3472,7 @@ function buildIQHtml(q,qx,qid,qi,totalQ,isReport){
 let h='';
 const qtype=detectQType(q);
 h+=`<div class="iq-card" id="quiz-${qid}">`;
-h+=`<div class="iq-hdr"><span class="iq-num">Question ${qi} of ${totalQ}${isReport?' · Reading Test':''}</span><span class="iq-badge">1 mark</span></div>`;
+h+=`<div class="iq-hdr"><span class="iq-num">Question ${qi} of ${totalQ}${isReport?(qid.startsWith('final-exam-3')?' · Practical Scenarios':qid.startsWith('final-exam-2')?' · Applied Knowledge':' · Reading Test'):''}</span><span class="iq-badge">1 mark</span></div>`;
 h+=`<div class="iq-body">`;
 if(qtype==='tfng'){
   const labels=[{key:'TRUE',icon:'✓',cls:'t-true'},{key:'FALSE',icon:'✗',cls:'t-false'},{key:'NOT GIVEN',icon:'?',cls:'t-ng'}];
@@ -3090,6 +3566,8 @@ const SEC_ICON={
   'formatting-tips':'💡',     // Đèn dầu – oil lamp bright ideas
   'pro-measurements':'📏',    // Thước dây – measuring tape, the tailor's tool
   'final-exam':'🎯',          // Bắn bi – the final shot, one target one chance
+  'final-exam-2':'📋',        // Bảng câu hỏi – the knowledge checklist, Part 2
+  'final-exam-3':'🔬',        // Kính lúp – magnifying lens, practical deep-dive, Part 3
 };
 
 const POEMS={
@@ -3138,6 +3616,8 @@ const POEMS={
   'formatting-tips':  "Polish the jade until the surface gleams,\nNot just the top — but through its deeper seams.\nThe tricks the quiet masters never show\nAre now yours freely, yours to keep and know.",
   'pro-measurements': "The tailor measures every cloth out twice,\nNo half-done hem, no careless cut suffice.\nProfessional standards steady every line —\nSo every published page comes out divine.",
   'final-exam':       "One last kite string — held between finger and sky,\nThe field is quiet, only you and the wind nearby.\nRead each line twice, the way grandmother read her prayers —\nEvery error found is a lantern lighting the stairs.",
+  'final-exam-2':    "Eighteen doors, each one a choice to make,\nThe menu path a river — find the lake.\nVariables bloom like lotus, named with care —\nKnow each by heart and find the answer there.",
+  'final-exam-3':    "Forty lanterns lit along the evening way,\nEach one a question from the working day.\nData flows like water through the field —\nKnow where it comes from and what it yields.",
 };
 
 function poemHtml(id){
@@ -3153,7 +3633,7 @@ const tc={'gs':'gs','wf':'wf','ad':'ad','el':'el','rp':'rp'};
 const tn={'gs':'Getting Started','wf':'Workflow','ad':'Administration','el':'Report Elements','rp':'Reports ★'};
 D.forEach(d=>{
 // Determine if this section has its own bespoke layout (warm-up, final exam use custom styles)
-const isBespoke=(d.id==='warmup-reading'||d.id==='final-exam');
+const isBespoke=(d.id==='warmup-reading'||d.id==='final-exam'||d.id==='final-exam-2'||d.id==='final-exam-3');
 const icon=SEC_ICON[d.id]||'🎋';
 if(isBespoke){
 // Bespoke sections: use their own embedded HTML (no cs- wrapper for the lc/header)
@@ -3179,11 +3659,60 @@ let lHtml=d.l
 lHtml=lHtml.replace('</div>\n\n\n<div class="wu-time-bar">',`${poemHtml(d.id)}</div>\n\n\n<div class="wu-time-bar">`);
 h+=`<div class="lc">${lHtml}</div>`;
 } else {
+// final-exam-2 bespoke — inject questions into group placeholders
+if(d.id==='final-exam-2'){
+const groups={g1:'',g2:'',g3:'',g4:''};
+d.qs.forEach((q,qx)=>{
+  const qid=d.id+'-q'+qx; qi++;
+  // Q1-6 → g1, Q7-10 → g2, Q11-13 → g3, Q14-18 → g4
+  const gk=qx<=5?'g1':qx<=9?'g2':qx<=12?'g3':'g4';
+  const lastOfGroup=(gk==='g1'?5:gk==='g2'?9:gk==='g3'?12:d.qs.length-1);
+  groups[gk]+=buildIQHtml(q,qx,qid,qi,totalQ,d.isReport);
+  if(qx<lastOfGroup) groups[gk]+='<div class="iq-sep"></div>';
+});
+for(const gk of ['g1','g2','g3','g4']){
+  groups[gk]=`<div class="wu-qs">${groups[gk]}</div>`;
+}
+let lHtml=d.l
+  .replace('<div data-fe2-inject="g1"></div>',groups.g1)
+  .replace('<div data-fe2-inject="g2"></div>',groups.g2)
+  .replace('<div data-fe2-inject="g3"></div>',groups.g3)
+  .replace('<div data-fe2-inject="g4"></div>',groups.g4);
+lHtml=lHtml.replace('</div>\n<div class="cam-meta-bar">',`${poemHtml(d.id)}</div>\n<div class="cam-meta-bar">`);
+h+=`<div class="lc">${lHtml}</div>`;
+} else if(d.id==='final-exam-3'){
+// final-exam-3 bespoke — 5 groups:
+// g1: Q1-6  (idx 0-5)   Report Settings
+// g2: Q7-15 (idx 6-14)  TB Import
+// g3: Q16-25 (idx 15-24) Accounts/Categories/Mapping
+// g4: Q26-30 (idx 25-29) Journals & Report Data
+// g5: Q31-40 (idx 30-39) Report Design & Smart Tables
+const groups={g1:'',g2:'',g3:'',g4:'',g5:''};
+d.qs.forEach((q,qx)=>{
+  const qid=d.id+'-q'+qx; qi++;
+  const gk=qx<=5?'g1':qx<=14?'g2':qx<=24?'g3':qx<=29?'g4':'g5';
+  const lastOfGroup=(gk==='g1'?5:gk==='g2'?14:gk==='g3'?24:gk==='g4'?29:d.qs.length-1);
+  groups[gk]+=buildIQHtml(q,qx,qid,qi,totalQ,d.isReport);
+  if(qx<lastOfGroup) groups[gk]+='<div class="iq-sep"></div>';
+});
+for(const gk of ['g1','g2','g3','g4','g5']){
+  groups[gk]=`<div class="wu-qs">${groups[gk]}</div>`;
+}
+let lHtml=d.l
+  .replace('<div data-fe3-inject="g1"></div>',groups.g1)
+  .replace('<div data-fe3-inject="g2"></div>',groups.g2)
+  .replace('<div data-fe3-inject="g3"></div>',groups.g3)
+  .replace('<div data-fe3-inject="g4"></div>',groups.g4)
+  .replace('<div data-fe3-inject="g5"></div>',groups.g5);
+lHtml=lHtml.replace('</div>\n<div class="cam-meta-bar">',`${poemHtml(d.id)}</div>\n<div class="cam-meta-bar">`);
+h+=`<div class="lc">${lHtml}</div>`;
+} else {
 // final-exam bespoke — inject poem into cam-header
 let lHtml=d.l.replace('</div>\n<div class="cam-meta-bar">',`${poemHtml(d.id)}</div>\n<div class="cam-meta-bar">`);
 h+=`<div class="lc">${lHtml}</div>`;
 if(d.err&&d.err.trim()) h+=`<div class="err-box"><div class="err-title">⚠ Common Errors &amp; Solutions</div>${d.err}</div>`;
 if(d.tips) h+=`<div class="tip-box"><div class="tip-title">💡 Brilliant Tips &amp; Tricks</div>${d.tips}</div>`;
+}
 }
 } else {
 // All regular lesson sections: Cambridge-style header + lesson area
@@ -3204,7 +3733,7 @@ if(d.tips) h+=`<div class="tip-box"><div class="tip-title">💡 Brilliant Tips &
 }
 d.qs.forEach((q,qx)=>{
 const qid=d.id+'-q'+qx;
-if(d.id==='warmup-reading')return; // Already rendered inline above
+if(d.id==='warmup-reading'||d.id==='final-exam-2'||d.id==='final-exam-3')return; // Already rendered inline above
 qi++;
 if(isBespoke){
 h+=buildIQHtml(q,qx,qid,qi,totalQ,d.isReport);
@@ -3236,7 +3765,7 @@ function detectQType(q){
 const dotOrder=[];
 function ha(qid,sel,cor){
 if(aSet.has(qid))return;aSet.add(qid);answered++;
-const ok=sel===cor;if(ok)score++;
+const ok=sel===cor;
 dotOrder.push({qid,ok});
 // Disable & mark all interactive elements for this question
 ['qo','gap-tile','ph-chip','bq-opt'].forEach(cls=>{
@@ -3268,28 +3797,86 @@ fb.innerHTML=`<strong>${ok?'✓ Correct!':'✗ Incorrect.'}</strong> ${ex}`;
 uS();
 }
 
+/* ── Scoring engine ── */
+function computeDotTypes(rawOrder){
+  // Step 1: raw types
+  const t=rawOrder.map(e=>e.ok?'ok':'no');
+  // Step 2: minus rule — 3rd consecutive incorrect → minus; any no adjacent to minus → minus
+  let consec=0,prevMinus=false;
+  for(let i=0;i<t.length;i++){
+    if(t[i]==='no'){
+      consec++;
+      if(consec>=3||prevMinus){t[i]='minus';prevMinus=true;}
+      else{prevMinus=false;}
+    } else {consec=0;prevMinus=false;}
+  }
+  // Step 3: wild guess rule — ok with ≥2 incorrect on each side → wild (0.33 pt)
+  for(let i=0;i<t.length;i++){
+    if(t[i]==='ok'){
+      let before=0,j=i-1;
+      while(j>=0&&t[j]!=='ok'&&t[j]!=='wild'){before++;j--;}
+      let after=0;j=i+1;
+      while(j<t.length&&t[j]!=='ok'&&t[j]!=='wild'){after++;j++;}
+      if(before>=2&&after>=2)t[i]='wild';
+    }
+  }
+  return t;
+}
+function computeScore(types){
+  return types.reduce((acc,t)=>{
+    if(t==='ok')return acc+1;
+    if(t==='wild')return acc+0.33;
+    if(t==='minus')return acc-1;
+    return acc;
+  },0);
+}
+const TYPE_CLASSES=['ok','no','wild','minus'];
+
 function uS(){
-const wrong=answered-score;
-document.getElementById('sV').textContent=score;
-document.getElementById('wV').textContent=wrong;
-document.getElementById('aV').textContent=`${answered} / ${totalQ} answered`;
-// rebuild dots
-const wrap=document.getElementById('qdots');
-if(!wrap)return;
-// create dots for total questions on first call
-if(wrap.children.length===0){
-for(let i=0;i<totalQ;i++){
-const d=document.createElement('span');
-d.className='qdot';d.id='dot-'+i;wrap.appendChild(d);
-}
-}
-// colour each answered dot
-dotOrder.forEach((entry,i)=>{
-const dot=document.getElementById('dot-'+i);
-if(dot&&!dot.classList.contains('ok')&&!dot.classList.contains('no')){
-dot.classList.add(entry.ok?'ok':'no');
-}
-});
+  const types=computeDotTypes(dotOrder);
+  score=Math.round(computeScore(types)*100)/100;
+  const correctCt=types.filter(t=>t==='ok').length;
+  const wrong=types.filter(t=>t==='no').length;
+  const wildCt=types.filter(t=>t==='wild').length;
+  const minusCt=types.filter(t=>t==='minus').length;
+  const fmtScore=Number.isInteger(score)?score:score.toFixed(2);
+  document.getElementById('sV').textContent=correctCt;
+  document.getElementById('wV').textContent=wrong;
+  document.getElementById('aV').textContent=`${answered} / ${totalQ} answered`;
+  const wV2=document.getElementById('wildV');
+  const mV2=document.getElementById('minusV');
+  const tV=document.getElementById('totalPtsV');
+  if(wV2)wV2.textContent=wildCt;
+  if(mV2)mV2.textContent=minusCt;
+  if(tV){
+    tV.textContent=fmtScore;
+    // Colour the badge: green if positive, red if negative, neutral at 0
+    const wrap=tV.closest('.score-total-wrap');
+    if(wrap){
+      wrap.style.background=score>0?'linear-gradient(135deg,#2e6e3e,#1e5530)':score<0?'linear-gradient(135deg,#991b1b,#7f1d1d)':'linear-gradient(135deg,#3a4815,#556b20)';
+    }
+  }
+  // rebuild dots
+  const wrap=document.getElementById('qdots');
+  if(!wrap)return;
+  if(wrap.children.length===0){
+    for(let i=0;i<totalQ;i++){
+      const d=document.createElement('span');
+      d.className='qdot';d.id='dot-'+i;
+      d.title='';
+      wrap.appendChild(d);
+    }
+  }
+  // update every answered dot (retroactive reclassification)
+  types.forEach((typ,i)=>{
+    const dot=document.getElementById('dot-'+i);
+    if(!dot)return;
+    // Remove all type classes then re-add correct one
+    TYPE_CLASSES.forEach(c=>dot.classList.remove(c));
+    dot.classList.add(typ);
+    const LABELS={ok:'✓ Correct (+1)',no:'✗ Incorrect (0)',wild:'🎲 Wild Guess (+0.33)',minus:'🌩️ Penalty (−1)'};
+    dot.title=LABELS[typ]||'';
+  });
 }
 
 function ss(id){
