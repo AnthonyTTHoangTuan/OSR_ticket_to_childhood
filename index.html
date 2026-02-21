@@ -186,57 +186,81 @@ background-size:600px 20px}
 .nav-item.active{color:var(--bo2);background:var(--bo-g);border-left-color:var(--bo);font-weight:700}
 .nav-item .star{color:var(--bo);font-size:.55rem;margin-left:.2rem}
 
-/* ── SCORE BAR (playful) ── */
+/* ── SCORE BAR (sports scoreboard) ── */
 .score-bar{position:sticky;top:0;z-index:5;
-background:linear-gradient(135deg,#f5f4d0 0%,#edeab4 100%);
-border-bottom:3px solid var(--bo-light);padding:.6rem 1.2rem .4rem;display:flex;flex-direction:column;gap:.35rem;font-size:.74rem;
-box-shadow:0 4px 12px rgba(176,171,58,.12)}
-.score-bar-top{display:flex;align-items:center;gap:.5rem}
-.score-bar .lb{color:var(--ink3);font-weight:700;font-family:'Baloo 2',cursive}
-.score-bar .vl-ok{color:var(--ok);font-weight:800;font-family:'Baloo 2',cursive;font-size:.8rem}
-.score-bar .vl-no{color:var(--no);font-weight:800;font-family:'Baloo 2',cursive;font-size:.8rem}
-.score-bar .vl-prog{color:var(--blue2);font-weight:700;font-family:'JetBrains Mono',monospace;font-size:.72rem;margin-left:auto}
-.score-bar .sep{color:var(--cream4);margin:0 .15rem}
+background:linear-gradient(135deg,#1a2235 0%,#2d3a5e 100%);
+border-bottom:3px solid #4a5a8a;padding:.55rem 1.2rem .4rem;display:flex;flex-direction:column;gap:.3rem;
+box-shadow:0 4px 16px rgba(0,0,0,.35)}
+.score-bar-top{display:flex;align-items:center;gap:.45rem;flex-wrap:wrap}
+/* Each stat is a self-contained chip */
+.sb-chip{display:inline-flex;align-items:center;gap:.28rem;border-radius:20px;padding:.18rem .55rem .18rem .3rem;border:1.5px solid rgba(255,255,255,.12);backdrop-filter:blur(4px)}
+.sb-chip .sb-ico{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;font-size:11px;line-height:1;flex-shrink:0}
+.sb-chip .sb-val{font-weight:900;font-family:'JetBrains Mono',monospace;font-size:.82rem;letter-spacing:-.01em}
+.sb-chip .sb-lbl{font-weight:600;font-family:'Baloo 2',cursive;font-size:.67rem;letter-spacing:.2px;opacity:.85}
+/* Scored — emerald */
+.sb-chip.chip-ok{background:rgba(16,185,129,.18);border-color:rgba(16,185,129,.4)}
+.sb-chip.chip-ok .sb-ico{background:#059669;box-shadow:0 0 6px rgba(16,185,129,.6)}
+.sb-chip.chip-ok .sb-val{color:#34d399}
+.sb-chip.chip-ok .sb-lbl{color:#6ee7b7}
+/* Missed — cool slate */
+.sb-chip.chip-no{background:rgba(100,116,139,.2);border-color:rgba(100,116,139,.4)}
+.sb-chip.chip-no .sb-ico{background:#475569;box-shadow:0 0 6px rgba(100,116,139,.5)}
+.sb-chip.chip-no .sb-val{color:#cbd5e1}
+.sb-chip.chip-no .sb-lbl{color:#94a3b8}
+/* Lucky shot — golden */
+.sb-chip.chip-w73{background:rgba(234,179,8,.18);border-color:rgba(234,179,8,.4)}
+.sb-chip.chip-w73 .sb-ico{background:#b45309;box-shadow:0 0 6px rgba(234,179,8,.6)}
+.sb-chip.chip-w73 .sb-val{color:#fde68a}
+.sb-chip.chip-w73 .sb-lbl{color:#fcd34d}
+/* Fluke — tangerine */
+.sb-chip.chip-w52{background:rgba(234,88,12,.18);border-color:rgba(234,88,12,.4)}
+.sb-chip.chip-w52 .sb-ico{background:#c2410c;box-shadow:0 0 6px rgba(234,88,12,.5)}
+.sb-chip.chip-w52 .sb-val{color:#fdba74}
+.sb-chip.chip-w52 .sb-lbl{color:#fb923c}
+/* Foul — violet */
+.sb-chip.chip-mn{background:rgba(139,92,246,.18);border-color:rgba(139,92,246,.4)}
+.sb-chip.chip-mn .sb-ico{background:#7c3aed;box-shadow:0 0 6px rgba(139,92,246,.5)}
+.sb-chip.chip-mn .sb-val{color:#c4b5fd}
+.sb-chip.chip-mn .sb-lbl{color:#a78bfa}
+/* Progress text */
+.score-bar .vl-prog{color:#94a3b8;font-weight:700;font-family:'JetBrains Mono',monospace;font-size:.7rem;margin-left:auto;white-space:nowrap}
+.score-bar .sep{color:#4a5a8a;margin:0 .05rem;font-size:.9rem}
+.score-total-wrap{display:inline-flex;align-items:center;gap:.35rem;background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:20px;padding:.18rem .7rem .18rem .45rem;margin-left:.15rem;border:1.5px solid rgba(255,255,255,.25);box-shadow:0 2px 10px rgba(245,158,11,.4)}
+.score-total-wrap .lb-total{color:rgba(0,0,0,.6);font-weight:800;font-family:'Baloo 2',cursive;font-size:.65rem;letter-spacing:.4px;text-transform:uppercase}
+.score-total-wrap .vl-total{color:#1c1917;font-weight:900;font-family:'JetBrains Mono',monospace;font-size:.88rem;letter-spacing:-.01em;min-width:2rem;text-align:right}
 .qdots{display:flex;flex-wrap:wrap;gap:4px;padding:.15rem 0}
-.qdot{width:13px;height:13px;border-radius:50%;border:2px solid var(--cream3);background:var(--cream2);transition:all .3s;flex-shrink:0}
+.qdot{width:14px;height:14px;border-radius:50%;border:2px solid var(--cream3);background:var(--cream2);transition:all .3s;flex-shrink:0}
 .qdot.ok{
-  background:var(--ok);border-color:var(--green2);transform:scale(1.2);box-shadow:0 0 8px rgba(45,155,90,.3);
-  font-size:8px;line-height:1;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#34d399,#059669);border-color:#047857;transform:scale(1.2);
+  box-shadow:0 0 8px rgba(52,211,153,.4);display:flex;align-items:center;justify-content:center;
 }
-.qdot.ok::after{content:'🐸';font-size:8px;line-height:1}
+.qdot.ok::after{content:'🥇';font-size:8px;line-height:1}
 .qdot.no{
-  background:var(--no);border-color:#a02018;transform:scale(1.2);box-shadow:0 0 8px rgba(196,47,28,.3);
-  font-size:8px;line-height:1;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#f87171,#dc2626);border-color:#b91c1c;transform:scale(1.2);
+  box-shadow:0 0 8px rgba(248,113,113,.4);display:flex;align-items:center;justify-content:center;
 }
-.qdot.no::after{content:'🐞';font-size:8px;line-height:1}
-/* 🎲 Wild guess dot — amber/orange, 0.33 pt */
-.qdot.wild{
-  background:linear-gradient(135deg,#f59e0b,#d97706);
-  border-color:#b45309;
-  transform:scale(1.2);
-  box-shadow:0 0 10px rgba(245,158,11,.45);
-  font-size:8px;line-height:1;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;
+.qdot.no::after{content:'🚫';font-size:8px;line-height:1}
+/* 🌻 Wild-73 dot — sunflower yellow, 0.73 pt (2 wrong, 1 wrong flanking) */
+.qdot.wild73{
+  background:linear-gradient(135deg,#fde68a,#f59e0b);border-color:#d97706;transform:scale(1.2);
+  box-shadow:0 0 10px rgba(253,230,138,.6);display:flex;align-items:center;justify-content:center;
 }
-.qdot.wild::after{content:'🎲';font-size:7px;line-height:1}
-/* 🌩️ Penalty dot — storm slate, −1 pt */
+.qdot.wild73::after{content:'🌻';font-size:8px;line-height:1}
+/* 🍂 Wild-52 dot — autumn orange, 0.52 pt (2 wrong each side) */
+.qdot.wild52{
+  background:linear-gradient(135deg,#fdba74,#ea580c);border-color:#c2410c;transform:scale(1.2);
+  box-shadow:0 0 10px rgba(253,186,116,.5);display:flex;align-items:center;justify-content:center;
+}
+.qdot.wild52::after{content:'🍂';font-size:8px;line-height:1}
+/* 🌧️ Penalty dot — rainy sky blue, −1 pt */
 .qdot.minus{
-  background:linear-gradient(135deg,#475569,#1e293b);
-  border-color:#334155;
-  transform:scale(1.2);
-  box-shadow:0 0 10px rgba(71,85,105,.55);
-  font-size:8px;line-height:1;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;
+  background:linear-gradient(135deg,#93c5fd,#3b82f6);border-color:#2563eb;transform:scale(1.2);
+  box-shadow:0 0 10px rgba(147,197,253,.5);display:flex;align-items:center;justify-content:center;
 }
-.qdot.minus::after{content:'🌩️';font-size:7px;line-height:1}
+.qdot.minus::after{content:'🌧️';font-size:8px;line-height:1}
 @keyframes dotPop{0%{transform:scale(0.3) rotate(-180deg)}60%{transform:scale(1.3) rotate(10deg)}100%{transform:scale(1.15) rotate(0)}}
-.qdot.ok,.qdot.no{animation:dotPop .4s cubic-bezier(.34,1.56,.64,1) forwards}
-.qdot.wild,.qdot.minus{animation:dotPop .45s cubic-bezier(.34,1.56,.64,1) forwards}
-/* Score bar extra value colours */
-.score-bar .vl-wild{color:#d97706;font-weight:800;font-family:'Baloo 2',cursive;font-size:.8rem}
-.score-bar .vl-minus{color:#475569;font-weight:800;font-family:'Baloo 2',cursive;font-size:.8rem}
-/* Total points badge */
-.score-total-wrap{display:flex;align-items:center;gap:.35rem;background:linear-gradient(135deg,#3a4815,#556b20);border-radius:10px;padding:.18rem .65rem .18rem .5rem;margin-left:.3rem;border:2px solid var(--bo-light);box-shadow:0 2px 8px rgba(58,72,21,.18)}
-.score-total-wrap .lb-total{color:rgba(255,255,255,.7);font-weight:700;font-family:'Baloo 2',cursive;font-size:.68rem;letter-spacing:.3px}
-.score-total-wrap .vl-total{color:#f5f4d0;font-weight:900;font-family:'JetBrains Mono',monospace;font-size:.88rem;letter-spacing:-.01em;min-width:2.2rem;text-align:right}
+.qdot.ok,.qdot.no,.qdot.wild73,.qdot.wild52,.qdot.minus{animation:dotPop .4s cubic-bezier(.34,1.56,.64,1) forwards}
+/* Total points badge — now handled by .score-total-wrap above */
 
 /* ── SECTIONS ── */
 .section{display:none;animation:fadeUp .45s cubic-bezier(.25,.46,.45,.94)}.section.visible{display:block}
@@ -763,9 +787,9 @@ cursor:pointer;box-shadow:0 4px 18px rgba(58,72,21,.45);transition:.2s;padding:0
 
 /* ══ FINAL-EXAM SPECIFIC STYLES (if present) ══ */
 .cam-q-section{background:var(--cream2);border:2px solid var(--cream3);border-radius:14px;padding:16px 20px;margin-top:1.1rem}
-.cam-q-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.cam-q-hdr h4{font-family:'Baloo 2',cursive;font-size:.95rem;color:var(--ink);margin:0}
-.cam-qn{font-size:.7rem;color:var(--ink3);font-weight:600}
+.cam-q-hdr{background:linear-gradient(135deg,#2d3a5e,#1a2a4e);border-radius:10px;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.cam-q-hdr h4{font-family:'Baloo 2',cursive;font-size:.95rem;color:#f0ede8;margin:0}
+.cam-qn{font-size:.7rem;color:#c8d4f0;font-weight:700;background:rgba(255,255,255,.12);padding:2px 10px;border-radius:8px;border:1px solid rgba(255,255,255,.15)}
 .cam-q-task{font-size:.82rem;line-height:1.7;color:var(--ink2)}
 .cam-score-note{margin-top:8px;font-size:.75rem;color:var(--red);font-weight:600}
 </style>
@@ -860,18 +884,17 @@ cursor:pointer;box-shadow:0 4px 18px rgba(58,72,21,.45);transition:.2s;padding:0
 <div class="main-wrap">
 <div class="score-bar">
 <div class="score-bar-top">
-<span class="lb">🐸</span><span class="vl-ok" id="sV">0</span>
-<span class="lb">pts</span>
-<span class="sep">·</span>
-<span class="lb">🐞</span><span class="vl-no" id="wV">0</span>
-<span class="lb">wrong</span>
-<span class="sep">·</span>
-<span class="lb">🎲</span><span class="vl-wild" id="wildV">0</span>
-<span class="lb">wild</span>
-<span class="sep">·</span>
-<span class="lb">🌩️</span><span class="vl-minus" id="minusV">0</span>
-<span class="lb">penalty</span>
-<div class="score-total-wrap"><span class="lb-total">⭐ TOTAL</span><span class="vl-total" id="totalPtsV">0</span></div>
+<!-- Scored chip -->
+<span class="sb-chip chip-ok"><span class="sb-ico">⚽</span><span class="sb-val" id="sV">0</span><span class="sb-lbl">scored</span></span>
+<!-- Missed chip -->
+<span class="sb-chip chip-no"><span class="sb-ico">🧱</span><span class="sb-val" id="wV">0</span><span class="sb-lbl">missed</span></span>
+<!-- Lucky shot chip -->
+<span class="sb-chip chip-w73"><span class="sb-ico">🍀</span><span class="sb-val" id="wild73V">0</span><span class="sb-lbl">lucky shot</span></span>
+<!-- Fluke chip -->
+<span class="sb-chip chip-w52"><span class="sb-ico">🎱</span><span class="sb-val" id="wild52V">0</span><span class="sb-lbl">fluke</span></span>
+<!-- Foul chip -->
+<span class="sb-chip chip-mn"><span class="sb-ico">🟥</span><span class="sb-val" id="minusV">0</span><span class="sb-lbl">foul</span></span>
+<div class="score-total-wrap"><span class="lb-total">🏆 TOTAL</span><span class="vl-total" id="totalPtsV">0</span></div>
 <span class="vl-prog" id="aV">0 / 0 answered</span>
 </div>
 <div class="qdots" id="qdots"></div>
@@ -903,7 +926,7 @@ l:`<div class="wu-wrap">
 
 <div class="wu-time-bar">
 <span>📖 3 Reading Passages &nbsp;|&nbsp; 40 Questions</span>
-<span>⏱ Suggested Time: <span class="wu-tv">60 MINUTES</span></span>
+<span>🕐 Recommended time: <span class="wu-tv">60 MINUTES</span></span>
 </div>
 
 <!-- ═══ PASSAGE 1 ═══ -->
@@ -2835,7 +2858,7 @@ l:`
 </div>
 <div class="cam-meta-bar">
   <span>Part 1 of 3 &nbsp;|&nbsp; Questions: 40 &nbsp;|&nbsp; Format: Multiple Choice &nbsp;|&nbsp; Full Marks: 40</span>
-  <span class="cam-tv">⏱ Recommended time: 60 min</span>
+  <span class="cam-tv">🕐 Recommended time: 60 min</span>
 </div>
 
 <!-- ── GROUP 1 ── -->
@@ -3114,7 +3137,7 @@ l:`
 </div>
 <div class="cam-meta-bar">
   <span>Part 2 of 2 &nbsp;|&nbsp; Questions: 18 &nbsp;|&nbsp; Format: Multiple Choice &nbsp;|&nbsp; Full Marks: 18</span>
-  <span class="cam-tv">⏱ Recommended time: 27 min</span>
+  <span class="cam-tv">🕐 Recommended time: 27 min</span>
 </div>
 
 <!-- ── GROUP 1 ── -->
@@ -3185,9 +3208,9 @@ qs:[
    x:"Close Financial Period and Open Financial Period are both performed from the entity dropdown, each with a confirmation prompt. This is the documented lock/unlock mechanism. Journal classification, Design mode, and Administration menu toggling do not perform this function."},
 
   {q:"Q4 — A new user cannot complete registration because their Universal ID does not meet the documented rules. Which ID is valid?",
-   o:["alex%nguyen@ufs.com.au","alex nguyen@ufs.com.au","alex.nguyen@ufs.com.au","a.ng@uf"],
+   o:["alex%nguyen@xyz.com.au","alex nguyen@xyz.com.au","alex.nguyen@xyz.com.au","a.ng@xy"],
    c:2,
-   x:"Universal IDs must be at least 8 characters and use only alphanumerics plus the special characters . - _ @. The % character is not permitted (eliminates A), spaces are not permitted (eliminates B), and a.ng@uf is only 8 characters but '@uf' implies an invalid domain — alex.nguyen@ufs.com.au is the only fully compliant option."},
+   x:"Universal IDs must be at least 8 characters and use only alphanumerics plus the special characters . - _ @. The % character is not permitted (eliminates A), spaces are not permitted (eliminates B), and a.ng@xy is only 7 characters which is too short — alex.nguyen@xyz.com.au is the only fully compliant option."},
 
   {q:"Q5 — While adding a user, you must set an initial password that passes the documented complexity rules. Which password qualifies?",
    o:["TempPass11","TempPass!!","temppass1!","TempPass1!"],
@@ -3334,7 +3357,7 @@ l:`
 </div>
 <div class="cam-meta-bar">
   <span>Part 3 of 3 &nbsp;|&nbsp; Questions: 6 &nbsp;|&nbsp; Format: Sentence Error Identification &nbsp;|&nbsp; Full Marks: 6</span>
-  <span>Recommended Time: <span class="cam-tv">45 min</span></span>
+  <span>🕐 Recommended Time: <span class="cam-tv">45 min</span></span>
 </div>
 
 <!-- ── PASSAGE ── -->
@@ -3616,8 +3639,8 @@ const POEMS={
   'formatting-tips':  "Polish the jade until the surface gleams,\nNot just the top — but through its deeper seams.\nThe tricks the quiet masters never show\nAre now yours freely, yours to keep and know.",
   'pro-measurements': "The tailor measures every cloth out twice,\nNo half-done hem, no careless cut suffice.\nProfessional standards steady every line —\nSo every published page comes out divine.",
   'final-exam':       "One last kite string — held between finger and sky,\nThe field is quiet, only you and the wind nearby.\nRead each line twice, the way grandmother read her prayers —\nEvery error found is a lantern lighting the stairs.",
-  'final-exam-2':    "Eighteen doors, each one a choice to make,\nThe menu path a river — find the lake.\nVariables bloom like lotus, named with care —\nKnow each by heart and find the answer there.",
-  'final-exam-3':    "Forty lanterns lit along the evening way,\nEach one a question from the working day.\nData flows like water through the field —\nKnow where it comes from and what it yields.",
+  'final-exam-2':    "Each menu path a river winding clear,\nThe answer lives in what you choose to hear.\nVariables bloom like lotus on the pond —\nName them well, and the report responds.",
+  'final-exam-3':    "The data flows like water through the field,\nEach import mapped to what the numbers yield.\nWhere figures live and how the columns meet —\nRead the path and find the answer neat.",
 };
 
 function poemHtml(id){
@@ -3810,14 +3833,18 @@ function computeDotTypes(rawOrder){
       else{prevMinus=false;}
     } else {consec=0;prevMinus=false;}
   }
-  // Step 3: wild guess rule — ok with ≥2 incorrect on each side → wild (0.33 pt)
+  // Step 3: wild guess rules — ok flanked by incorrect runs on each side
+  // Count consecutive non-ok/non-wild runs immediately before and after
   for(let i=0;i<t.length;i++){
     if(t[i]==='ok'){
       let before=0,j=i-1;
-      while(j>=0&&t[j]!=='ok'&&t[j]!=='wild'){before++;j--;}
+      while(j>=0&&t[j]!=='ok'&&t[j]!=='wild73'&&t[j]!=='wild52'){before++;j--;}
       let after=0;j=i+1;
-      while(j<t.length&&t[j]!=='ok'&&t[j]!=='wild'){after++;j++;}
-      if(before>=2&&after>=2)t[i]='wild';
+      while(j<t.length&&t[j]!=='ok'&&t[j]!=='wild73'&&t[j]!=='wild52'){after++;j++;}
+      // 2 wrong each side → wild52 (0.52)
+      if(before>=2&&after>=2){t[i]='wild52';}
+      // 2 on one side, 1 on other → wild73 (0.73)
+      else if((before>=2&&after===1)||(before===1&&after>=2)){t[i]='wild73';}
     }
   }
   return t;
@@ -3825,35 +3852,43 @@ function computeDotTypes(rawOrder){
 function computeScore(types){
   return types.reduce((acc,t)=>{
     if(t==='ok')return acc+1;
-    if(t==='wild')return acc+0.33;
+    if(t==='wild73')return acc+0.73;
+    if(t==='wild52')return acc+0.52;
     if(t==='minus')return acc-1;
     return acc;
   },0);
 }
-const TYPE_CLASSES=['ok','no','wild','minus'];
+const TYPE_CLASSES=['ok','no','wild73','wild52','minus'];
 
 function uS(){
   const types=computeDotTypes(dotOrder);
   score=Math.round(computeScore(types)*100)/100;
   const correctCt=types.filter(t=>t==='ok').length;
   const wrong=types.filter(t=>t==='no').length;
-  const wildCt=types.filter(t=>t==='wild').length;
+  const w73Ct=types.filter(t=>t==='wild73').length;
+  const w52Ct=types.filter(t=>t==='wild52').length;
   const minusCt=types.filter(t=>t==='minus').length;
   const fmtScore=Number.isInteger(score)?score:score.toFixed(2);
   document.getElementById('sV').textContent=correctCt;
   document.getElementById('wV').textContent=wrong;
   document.getElementById('aV').textContent=`${answered} / ${totalQ} answered`;
-  const wV2=document.getElementById('wildV');
+  const w73El=document.getElementById('wild73V');
+  const w52El=document.getElementById('wild52V');
   const mV2=document.getElementById('minusV');
   const tV=document.getElementById('totalPtsV');
-  if(wV2)wV2.textContent=wildCt;
+  if(w73El)w73El.textContent=w73Ct;
+  if(w52El)w52El.textContent=w52Ct;
   if(mV2)mV2.textContent=minusCt;
   if(tV){
     tV.textContent=fmtScore;
-    // Colour the badge: green if positive, red if negative, neutral at 0
     const wrap=tV.closest('.score-total-wrap');
     if(wrap){
-      wrap.style.background=score>0?'linear-gradient(135deg,#2e6e3e,#1e5530)':score<0?'linear-gradient(135deg,#991b1b,#7f1d1d)':'linear-gradient(135deg,#3a4815,#556b20)';
+      wrap.style.background=score>0?'linear-gradient(135deg,#059669,#047857)':score<0?'linear-gradient(135deg,#dc2626,#991b1b)':'linear-gradient(135deg,#f59e0b,#d97706)';
+      wrap.style.boxShadow=score>0?'0 2px 10px rgba(5,150,105,.5)':score<0?'0 2px 10px rgba(220,38,38,.5)':'0 2px 10px rgba(245,158,11,.4)';
+      const lbTotal=wrap.querySelector('.lb-total');
+      const vlTotal=wrap.querySelector('.vl-total');
+      if(lbTotal)lbTotal.style.color=score!==0?'rgba(255,255,255,.8)':'rgba(0,0,0,.6)';
+      if(vlTotal)vlTotal.style.color=score!==0?'#fff':'#1c1917';
     }
   }
   // rebuild dots
@@ -3871,10 +3906,9 @@ function uS(){
   types.forEach((typ,i)=>{
     const dot=document.getElementById('dot-'+i);
     if(!dot)return;
-    // Remove all type classes then re-add correct one
     TYPE_CLASSES.forEach(c=>dot.classList.remove(c));
     dot.classList.add(typ);
-    const LABELS={ok:'✓ Correct (+1)',no:'✗ Incorrect (0)',wild:'🎲 Wild Guess (+0.33)',minus:'🌩️ Penalty (−1)'};
+    const LABELS={ok:'⚽ Scored (+1)',no:'🧱 Missed (0)',wild73:'🍀 Lucky Shot (+0.73)',wild52:'🎱 Fluke (+0.52)',minus:'🟥 Foul (−1)'};
     dot.title=LABELS[typ]||'';
   });
 }
